@@ -645,3 +645,211 @@ table.credentials tr:last-child td {
   color: #fff;
 }
 
+
+/* ---------- Student dashboard additions ---------- */
+.dash-header-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.cred-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cred-card {
+  background: #fff;
+  border: 1px solid var(--border-gray);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.cred-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0 0 12px;
+}
+
+.cred-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.cred-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: #f7f7fb;
+  border: 1px solid var(--border-gray);
+  border-radius: 8px;
+  padding: 0.7rem 0.4rem;
+  cursor: pointer;
+}
+
+.cred-action-btn i {
+  font-size: 18px;
+  color: var(--brand-blue);
+}
+
+.cred-action-btn span {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.cred-action-btn:hover {
+  background: #eef0fc;
+  border-color: var(--brand-blue);
+}
+
+
+/* ---------- Verifier portal additions ---------- */
+.verify-label {
+  display: block;
+  font-size: 14px;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.verify-input {
+  width: 100%;
+  padding: 0.9rem;
+  border: 1px solid var(--border-gray);
+  border-radius: 6px;
+  font-size: 15px;
+  margin-bottom: 1.25rem;
+  background: #fff;
+}
+
+.btn-verify {
+  display: block;
+  width: 100%;
+  padding: 0.9rem;
+  background: #34c439;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 1.75rem;
+}
+
+.btn-verify:hover {
+  background: #2aa62e;
+}
+
+.verify-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 1.75rem;
+}
+
+.verify-divider span {
+  flex: 1;
+  height: 1px;
+  background: var(--border-gray);
+}
+
+.verify-divider p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.qr-scan-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 1rem;
+  gap: 6px;
+}
+
+.qr-icon {
+  font-size: 44px;
+  color: var(--text-dark);
+  margin-bottom: 6px;
+}
+
+.qr-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.qr-subtext {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 240px;
+}
+
+.result-success-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #34c439;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.result-success-card i {
+  font-size: 22px;
+}
+
+.cert-info-card {
+  background: var(--bg-gray);
+  border-radius: 8px;
+  padding: 1.1rem;
+}
+
+.cert-info-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0 0 0.9rem;
+}
+
+.cert-info-list {
+  margin: 0;
+}
+
+.cert-info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #c9c9c9;
+  font-size: 14px;
+}
+
+.cert-info-row:last-child {
+  border-bottom: none;
+}
+
+.cert-info-row dt {
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.cert-info-row dd {
+  margin: 0;
+  color: var(--text-muted);
+  flex: 1;
+  text-align: right;
+}
+

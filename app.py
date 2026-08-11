@@ -14,5 +14,13 @@ def login():
 def admin_dashboard():
     return render_template('admin_dashboard.html')
 
+@app.route('/student')
+def student_dashboard():
+    return render_template('student_dashboard.html')
+
+@app.route('/verifier')
+def verifier_dashboard():
+    return render_template('verifier_dashboard.html')
+
 if __name__ == '__main__':
     app.run(debug=True)

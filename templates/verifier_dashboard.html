@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verify Certificates - Academic Credential Verification System</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
+</head>
+<body class="dash-body">
+
+<header class="dash-header">
+  <div class="dash-header-top">
+    <button class="icon-btn" type="button" aria-label="Menu"><i class="ti ti-menu-2"></i></button>
+    <span class="dash-header-title">Verify Certificates</span>
+    <div class="dash-header-icons">
+      <button class="icon-btn" type="button" aria-label="Notifications"><i class="ti ti-bell"></i></button>
+      <button class="icon-btn" type="button" aria-label="Profile"><i class="ti ti-user-circle"></i></button>
+    </div>
+  </div>
+  <p class="dash-welcome">Welcome back,</p>
+  <h1 class="dash-role">Employer</h1>
+</header>
+
+<main class="dash-main">
+
+  <section class="dash-section">
+    <label for="cert-id" class="verify-label">Enter certificate ID</label>
+    <input type="text" id="cert-id" class="verify-input" placeholder="">
+
+    <button type="button" class="btn-verify">Verify</button>
+
+    <div class="verify-divider">
+      <span></span>
+      <p>Or</p>
+      <span></span>
+    </div>
+
+    <button type="button" class="qr-scan-card">
+      <i class="ti ti-file-shredder qr-icon"></i>
+      <span class="qr-title">Scan QR Code</span>
+      <span class="qr-subtext">Use camera to scan Certificate QR Code.</span>
+    </button>
+  </section>
+
+  <section class="dash-section">
+    <h2 class="dash-section-title">Verification Result</h2>
+
+    <div class="result-success-card">
+      <span>Verification Successful !</span>
+      <i class="ti ti-square-rounded-check"></i>
+    </div>
+
+    <div class="cert-info-card">
+      <h3 class="cert-info-title">Certificate Information</h3>
+      <dl class="cert-info-list">
+        <div class="cert-info-row">
+          <dt>Student Name:</dt>
+          <dd></dd>
+        </div>
+        <div class="cert-info-row">
+          <dt>Qualification:</dt>
+          <dd></dd>
+        </div>
+        <div class="cert-info-row">
+          <dt>Certificate Number:</dt>
+          <dd></dd>
+        </div>
+        <div class="cert-info-row">
+          <dt>Institution:</dt>
+          <dd></dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+</main>
+
+<nav class="bottom-nav">
+  <a href="#" class="bottom-nav-item active"><i class="ti ti-home"></i><span>Home</span></a>
+  <a href="#" class="bottom-nav-item"><i class="ti ti-clock-hour-4"></i><span>History</span></a>
+  <a href="#" class="bottom-nav-item"><i class="ti ti-share-2"></i><span>Share</span></a>
+  <a href="#" class="bottom-nav-item"><i class="ti ti-user-circle"></i><span>Profile</span></a>
+</nav>
+
+</body>
+</html>

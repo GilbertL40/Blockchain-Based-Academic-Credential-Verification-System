@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Dashboard - Academic Credential Verification System</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
+</head>
+<body class="dash-body">
+
+<header class="dash-header">
+  <div class="dash-header-top">
+    <button class="icon-btn" type="button" aria-label="Menu"><i class="ti ti-menu-2"></i></button>
+    <span class="dash-header-title">My Certificates</span>
+    <div class="dash-header-icons">
+      <button class="icon-btn" type="button" aria-label="Notifications"><i class="ti ti-bell"></i></button>
+      <button class="icon-btn" type="button" aria-label="Profile"><i class="ti ti-user-circle"></i></button>
+    </div>
+  </div>
+  <p class="dash-welcome">Welcome back,</p>
+  <h1 class="dash-role">Student</h1>
+</header>
+
+<main class="dash-main">
+
+  <section class="dash-section">
+    <div class="cred-list">
+
+      <div class="cred-card">
+        <h3 class="cred-title">Bachelor In Information Technology</h3>
+        <div class="cred-actions">
+          <button type="button" class="cred-action-btn">
+            <i class="ti ti-eye"></i>
+            <span>Views</span>
+          </button>
+          <button type="button" class="cred-action-btn">
+            <i class="ti ti-cloud-download"></i>
+            <span>Download</span>
+          </button>
+          <button type="button" class="cred-action-btn">
+            <i class="ti ti-shield-check"></i>
+            <span>QR Code</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="cred-card">
+        <h3 class="cred-title">Diploma In Information Technology</h3>
+        <div class="cred-actions">
+          <button type="button" class="cred-action-btn">
+            <i class="ti ti-eye"></i>
+            <span>Views</span>
+          </button>
+          <button type="button" class="cred-action-btn">
+            <i class="ti ti-cloud-download"></i>
+            <span>Download</span>
+          </button>
+          <button type="button" class="cred-action-btn">
+            <i class="ti ti-shield-check"></i>
+            <span>QR Code</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="cred-card">
+        <h3 class="cred-title">Grade 12 Certificate</h3>
+        <div class="cred-actions">
+          <button type="button" class="cred-action-btn">
+            <i class="ti ti-eye"></i>
+            <span>Views</span>
+          </button>
+          <button type="button" class="cred-action-btn">
+            <i class="ti ti-cloud-download"></i>
+            <span>Download</span>
+          </button>
+          <button type="button" class="cred-action-btn">
+            <i class="ti ti-shield-check"></i>
+            <span>QR Code</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<nav class="bottom-nav">
+  <a href="#" class="bottom-nav-item active"><i class="ti ti-home"></i><span>Dashboard</span></a>
+  <a href="#" class="bottom-nav-item"><i class="ti ti-file-certificate"></i><span>Certificates</span></a>
+  <a href="#" class="bottom-nav-item"><i class="ti ti-share-2"></i><span>Share</span></a>
+  <a href="#" class="bottom-nav-item"><i class="ti ti-user-circle"></i><span>Profile</span></a>
+</nav>
+
+</body>
+</html>
