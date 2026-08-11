@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Academic Credential Verification System</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
+</head>
+<body>
+
+<div class="top-bar"></div>
+
+<div class="login-wrap">
+  <div class="login-logo">
+    <div class="shield"><i class="ti ti-school"></i></div>
+    <h1>Academic Credential<br>Verification System</h1>
+    <p class="tagline">SECURE &bull; TRUSTED &bull; TRANSPARENT</p>
+  </div>
+
+  <form method="POST" action="{{ url_for('login') }}">
+    <div class="field">
+      <input type="email" name="email" placeholder="Email address" required>
+    </div>
+    <div class="field">
+      <input type="password" name="password" placeholder="Password" required>
+    </div>
+
+    <a href="#" class="forgot-link">Forgot Password?</a>
+
+    <button type="submit" class="btn-login">Login</button>
+  </form>
+
+  <p class="login-as-label">Login as</p>
+
+  <button type="button" class="role-btn" data-role="administrator">Administrator</button>
+  <button type="button" class="role-btn" data-role="student">Student</button>
+  <button type="button" class="role-btn" data-role="verifier">Verifier</button>
+</div>
+
+<script>
+  document.querySelectorAll('.role-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.role-btn').forEach(b => b.style.background = '#fff');
+      btn.style.background = '#eef0fc';
+    });
+  });
+</script>
+
+</body>
+</html>
