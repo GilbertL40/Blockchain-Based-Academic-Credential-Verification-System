@@ -400,3 +400,248 @@ table.credentials tr:last-child td {
     justify-content: space-between;
   }
 }
+
+/* ---------- Dashboard shell (admin/student/verifier) ---------- */
+.dash-body {
+  padding-bottom: 76px;
+}
+
+.dash-header {
+  background: var(--brand-blue);
+  color: #fff;
+  padding: 1.25rem 1.25rem 1.75rem;
+}
+
+.dash-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.dash-header-icons {
+  display: flex;
+  gap: 14px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.dash-welcome {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.dash-role {
+  margin: 4px 0 0;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.dash-main {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 0;
+}
+
+.dash-section {
+  margin-bottom: 1.75rem;
+}
+
+.dash-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dash-section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0 0 0.75rem;
+}
+
+.view-all-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--brand-blue);
+}
+
+/* Metric cards */
+.metric-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.metric-card {
+  background: #fff;
+  border: 1px solid var(--border-gray);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.metric-icon {
+  font-size: 20px;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.metric-icon.icon-success {
+  color: var(--status-verified);
+}
+
+.metric-icon.icon-danger {
+  color: #c62828;
+}
+
+.metric-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.1;
+}
+
+.metric-label {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Quick action buttons */
+.action-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-dark);
+  cursor: pointer;
+}
+
+.action-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.action-left i {
+  font-size: 20px;
+}
+
+.action-blue {
+  background: #b9cef2;
+}
+
+.action-green {
+  background: #b9ddb9;
+}
+
+.action-purple {
+  background: #dcb9e8;
+}
+
+/* Recent activity */
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.activity-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid var(--border-gray);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+}
+
+.activity-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-dark);
+  flex: 1;
+}
+
+.activity-left i {
+  font-size: 18px;
+  color: var(--text-muted);
+}
+
+.activity-status {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status-issued {
+  color: var(--status-verified);
+}
+
+.status-revoked {
+  color: #c62828;
+}
+
+.activity-row .icon-success {
+  color: var(--status-verified);
+  font-size: 20px;
+}
+
+.activity-row .icon-danger {
+  color: #c62828;
+  font-size: 20px;
+}
+
+/* Bottom navigation */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--brand-blue);
+  display: flex;
+  justify-content: space-around;
+  padding: 0.6rem 0 0.7rem;
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  color: #cfd6f7;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.bottom-nav-item i {
+  font-size: 20px;
+}
+
+.bottom-nav-item.active {
+  color: #fff;
+}
+

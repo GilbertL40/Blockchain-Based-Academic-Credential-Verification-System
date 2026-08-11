@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administrator Dashboard - Academic Credential Verification System</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
+</head>
+<body class="dash-body">
+
+<header class="dash-header">
+  <div class="dash-header-top">
+    <button class="icon-btn" type="button" aria-label="Menu"><i class="ti ti-menu-2"></i></button>
+    <div class="dash-header-icons">
+      <button class="icon-btn" type="button" aria-label="Notifications"><i class="ti ti-bell"></i></button>
+      <button class="icon-btn" type="button" aria-label="Profile"><i class="ti ti-user-circle"></i></button>
+    </div>
+  </div>
+  <p class="dash-welcome">Welcome back,</p>
+  <h1 class="dash-role">Administrator</h1>
+</header>
+
+<main class="dash-main">
+
+  <section class="dash-section">
+    <h2 class="dash-section-title">Overview</h2>
+    <div class="metric-grid">
+      <div class="metric-card">
+        <i class="ti ti-users metric-icon"></i>
+        <div class="metric-value">546</div>
+        <div class="metric-label">Students</div>
+      </div>
+      <div class="metric-card">
+        <i class="ti ti-file-certificate metric-icon"></i>
+        <div class="metric-value">736</div>
+        <div class="metric-label">Certificates Issued</div>
+      </div>
+      <div class="metric-card">
+        <i class="ti ti-square-rounded-x metric-icon icon-danger"></i>
+        <div class="metric-value">211</div>
+        <div class="metric-label">Revoked Certificates</div>
+      </div>
+      <div class="metric-card">
+        <i class="ti ti-square-rounded-check metric-icon icon-success"></i>
+        <div class="metric-value">571</div>
+        <div class="metric-label">Verified Certificates</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dash-section">
+    <h2 class="dash-section-title">Quick Actions</h2>
+    <div class="action-list">
+      <button type="button" class="action-btn action-blue">
+        <span class="action-left"><i class="ti ti-user-plus"></i>Register student</span>
+        <i class="ti ti-chevrons-right"></i>
+      </button>
+      <button type="button" class="action-btn action-green">
+        <span class="action-left"><i class="ti ti-file-certificate"></i>Issue Certificate</span>
+        <i class="ti ti-chevrons-right"></i>
+      </button>
+      <button type="button" class="action-btn action-purple">
+        <span class="action-left"><i class="ti ti-files"></i>Manage Certificate</span>
+        <i class="ti ti-chevrons-right"></i>
+      </button>
+    </div>
+  </section>
+
+  <section class="dash-section">
+    <div class="dash-section-header">
+      <h2 class="dash-section-title">Recent Activity</h2>
+      <a href="#" class="view-all-link">View All</a>
+    </div>
+    <div class="activity-list">
+      <div class="activity-row">
+        <span class="activity-left"><i class="ti ti-users"></i>Mac Daniel</span>
+        <span class="activity-status status-issued">Issued</span>
+        <i class="ti ti-square-rounded-check icon-success"></i>
+      </div>
+      <div class="activity-row">
+        <span class="activity-left"><i class="ti ti-users"></i>Jan Allan</span>
+        <span class="activity-status status-revoked">Revoked</span>
+        <i class="ti ti-square-rounded-x icon-danger"></i>
+      </div>
+      <div class="activity-row">
+        <span class="activity-left"><i class="ti ti-users"></i>James Aron</span>
+        <span class="activity-status status-issued">Issued</span>
+        <i class="ti ti-square-rounded-check icon-success"></i>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<nav class="bottom-nav">
+  <a href="#" class="bottom-nav-item active"><i class="ti ti-home"></i><span>Dashboard</span></a>
+  <a href="#" class="bottom-nav-item"><i class="ti ti-users"></i><span>Student</span></a>
+  <a href="#" class="bottom-nav-item"><i class="ti ti-file-certificate"></i><span>Certificates</span></a>
+  <a href="#" class="bottom-nav-item"><i class="ti ti-user-circle"></i><span>Profile</span></a>
+</nav>
+
+</body>
+</html>
