@@ -451,9 +451,9 @@ table.credentials tr:last-child td {
 }
 
 .dash-main {
-  max-width: 480px;
+  max-width: 420px;
   margin: 0 auto;
-  padding: 1.5rem 1.25rem 0;
+  padding: 1.5rem 1.5rem 0;
 }
 
 .dash-section {
@@ -627,7 +627,6 @@ table.credentials tr:last-child td {
   right: 0;
   background: var(--brand-blue);
   display: flex;
-  justify-content: space-around;
   padding: 0.6rem 0 0.7rem;
 }
 
@@ -919,4 +918,92 @@ body {
 
 .shield img {
   filter: brightness(0) invert(1);
+}
+
+.dash-header-inner {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.bottom-nav-inner {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+/* ---------- Overview metric cards interactive states ---------- */
+.metric-card {
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+  cursor: pointer;
+}
+
+.metric-card:hover {
+  background: #eef0fc;
+  border-color: var(--brand-blue);
+}
+
+.metric-card:active {
+  background: #dde1f7;
+  transform: scale(0.98);
+}
+/* ---------- Quick Actions buttons interactive states ---------- */
+.action-btn {
+  transition: background-color 0.15s ease, transform 0.1s ease;
+  cursor: pointer;
+}
+
+.action-blue:hover {
+  background: #a3bbec;
+}
+
+.action-blue:active {
+  background: #8fa9e2;
+  transform: scale(0.98);
+}
+
+.action-green:hover {
+  background: #a3d3a3;
+}
+
+.action-green:active {
+  background: #8fc68f;
+  transform: scale(0.98);
+}
+
+.action-purple:hover {
+  background: #d0a3e0;
+}
+
+.action-purple:active {
+  background: #c48fd6;
+  transform: scale(0.98);
+}
+
+/* ---------- Recent Activity rows interactive states ---------- */
+.activity-row {
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+  cursor: pointer;
+}
+
+.activity-row:hover {
+  background: #eef0fc;
+  border-color: var(--brand-blue);
+}
+
+.activity-row:active {
+  background: #dde1f7;
+  transform: scale(0.98);
+}
+
+/* ---------- View All link hover state ---------- */
+.view-all-link {
+  transition: color 0.15s ease;
+}
+
+.view-all-link:hover {
+  color: var(--brand-blue-dark);
+  text-decoration: underline;
 }
