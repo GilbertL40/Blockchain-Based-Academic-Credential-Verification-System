@@ -11,9 +11,15 @@
 
 <div class="top-bar"></div>
 
+<i class="ti ti-shield-check bg-icon bg-icon-1" aria-hidden="true"></i>
+<i class="ti ti-certificate bg-icon bg-icon-2" aria-hidden="true"></i>
+<i class="ti ti-lock bg-icon bg-icon-3" aria-hidden="true"></i>
+
 <div class="login-wrap">
   <div class="login-logo">
-    <div class="shield"><i class="ti ti-school"></i></div>
+<div class="shield">
+  <img src="{{ url_for('static', filename='logo-icon.png') }}" alt="Academic Credential Verification System logo" width="48" height="48">
+</div>
     <h1>Academic Credential<br>Verification System</h1>
     <p class="tagline">SECURE &bull; TRUSTED &bull; TRANSPARENT</p>
   </div>
@@ -30,22 +36,7 @@
 
     <button type="submit" class="btn-login">Login</button>
   </form>
-
-  <p class="login-as-label">Login as</p>
-
-  <button type="button" class="role-btn" data-role="administrator">Administrator</button>
-  <button type="button" class="role-btn" data-role="student">Student</button>
-  <button type="button" class="role-btn" data-role="verifier">Verifier</button>
 </div>
-
-<script>
-  document.querySelectorAll('.role-btn').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      document.querySelectorAll('.role-btn').forEach(b => b.style.background = '#fff');
-      btn.style.background = '#eef0fc';
-    });
-  });
-</script>
 
 </body>
 </html>

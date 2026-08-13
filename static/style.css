@@ -55,6 +55,10 @@ a {
   align-items: center;
   justify-content: center;
 }
+.shield img {
+  filter: brightness(0) invert(1);
+  margin-top: -2px;
+}
 
 .login-logo .shield i {
   color: #fff;
@@ -853,3 +857,66 @@ table.credentials tr:last-child td {
   text-align: right;
 }
 
+/* ---------- Login page background ---------- */
+body {
+  background: #e6f1fb;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.bg-icon {
+  position: absolute;
+  color: #b5d4f4;
+  opacity: 0.5;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-icon-1 {
+  top: -20px;
+  left: -10px;
+  font-size: 130px;
+}
+
+.bg-icon-2 {
+  bottom: -30px;
+  right: -20px;
+  font-size: 150px;
+}
+
+.bg-icon-3 {
+  top: 40%;
+  right: 6%;
+  font-size: 56px;
+  color: #85b7eb;
+  opacity: 0.45;
+}
+
+.login-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Login button interactive states ---------- */
+.btn-login {
+  transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+}
+
+.btn-login:hover {
+  background: var(--brand-blue-dark);
+  cursor: pointer;
+}
+
+.btn-login:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(63, 75, 196, 0.35);
+}
+
+.btn-login:active {
+  background: #262f80;
+  transform: scale(0.98);
+}
+
+.shield img {
+  filter: brightness(0) invert(1);
+}
