@@ -1007,3 +1007,93 @@ body {
   color: var(--brand-blue-dark);
   text-decoration: underline;
 }
+
+
+/* ---------- Student dashboard: margins matching login page ---------- */
+.dash-header-inner {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.bottom-nav-inner {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.dash-main {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 0;
+}
+
+/* ---------- Student dashboard background ---------- */
+.dash-body {
+  background: #e6f1fb;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.bg-icon {
+  position: absolute;
+  color: #b5d4f4;
+  opacity: 0.5;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-icon-1 {
+  top: -20px;
+  left: -10px;
+  font-size: 130px;
+}
+
+.bg-icon-2 {
+  bottom: -30px;
+  right: -20px;
+  font-size: 150px;
+}
+
+.bg-icon-3 {
+  top: 45%;
+  right: 6%;
+  font-size: 56px;
+  color: #85b7eb;
+  opacity: 0.45;
+}
+
+.dash-header,
+.dash-main,
+.bottom-nav {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Credential cards interactive states ---------- */
+.cred-card {
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.cred-card:hover {
+  background: #f5f7ff;
+  border-color: var(--brand-blue);
+}
+
+.cred-action-btn {
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+  cursor: pointer;
+}
+
+.cred-action-btn:hover {
+  background: #eef0fc;
+  border-color: var(--brand-blue);
+}
+
+.cred-action-btn:active {
+  background: #dde1f7;
+  transform: scale(0.96);
+}
