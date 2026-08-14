@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, render_template
 
 app = Flask(__name__)
@@ -23,4 +25,4 @@ def verifier_dashboard():
     return render_template('verifier_dashboard.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=os.environ.get('FLASK_DEBUG', '0') == '1')
