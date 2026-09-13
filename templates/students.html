@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Students - Academic Credential Verification System</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="dash-body">
+
+<header class="dash-header">
+  <div class="dash-header-inner">
+    <div class="dash-header-top">
+      <div class="dash-logo-block">
+        <div class="dash-logo-badge">
+          <img src="{{ url_for('static', filename='logo-icon.png') }}" alt="logo" width="15" height="15">
+        </div>
+        <p class="dash-logo-text">Academic Credential<br>Verification System</p>
+      </div>
+    </div>
+    <p class="dash-welcome">Manage</p>
+    <h1 class="dash-role">Students</h1>
+  </div>
+</header>
+
+<main class="dash-main">
+
+  <section class="dash-section">
+    <div class="metric-grid" style="grid-template-columns:1fr 1fr;">
+      <div class="metric-card" style="cursor:default;">
+        <svg class="metric-icon icon-success" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M9 12l2 2l4 -4"/></svg>
+        <div class="metric-value">{{ enrolled_count }}</div>
+        <div class="metric-label">Enrolled</div>
+      </div>
+      <div class="metric-card" style="cursor:default;">
+        <svg class="metric-icon icon-danger" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M9 9l6 6"/><path d="M15 9l-6 6"/></svg>
+        <div class="metric-value">{{ not_enrolled_count }}</div>
+        <div class="metric-label">Not Enrolled</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dash-section">
+    <a href="{{ url_for('register_student') }}" class="btn-primary" style="display:block; text-align:center; text-decoration:none; margin-bottom:14px;">+ Enroll New Student</a>
+
+    <div class="filter-tabs">
+      <a href="{{ url_for('admin_students') }}" class="filter-tab {{ 'active' if not status_filter }}">All</a>
+      <a href="{{ url_for('admin_students', status='enrolled') }}" class="filter-tab {{ 'active' if status_filter == 'enrolled' }}">Enrolled</a>
+      <a href="{{ url_for('admin_students', status='not-enrolled') }}" class="filter-tab {{ 'active' if status_filter == 'not-enrolled' }}">Not Enrolled</a>
+    </div>
+
+    <div class="cert-simple-list">
+      {% for s in students %}
+      <a href="{{ url_for('admin_student_detail', student_id=s.student_id) }}" class="cert-simple-row">
+        <div class="cert-simple-info">
+          <span class="cert-simple-id">{{ s.name }}</span>
+          <span class="cert-simple-student">{{ s.student_id }} &middot; {{ s.program }}</span>
+        </div>
+        {% if s.status == 'Enrolled' %}
+        <span class="status-pill verified">Enrolled</span>
+        {% else %}
+        <span class="status-pill pending" style="background:#fdeaea; color:#c62828;">Not Enrolled</span>
+        {% endif %}
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+</main>
+
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+  <a href="{{ url_for('admin_dashboard') }}" class="bottom-nav-item">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l-2 0l9 -9l9 9l-2 0"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"/><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"/></svg>
+    <span>Dashboard</span>
+  </a>
+  <a href="{{ url_for('admin_students') }}" class="bottom-nav-item active">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/></svg>
+    <span>Student</span>
+  </a>
+  <a href="{{ url_for('admin_certificates') }}" class="bottom-nav-item">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4"/><path d="M9.7 18.3l-.7 1.7l1.5 -.6l1.5 .6l-.7 -1.7"/><circle cx="11" cy="16" r="2.5"/></svg>
+    <span>Certificates</span>
+  </a>
+  <a href="{{ url_for('admin_profile') }}" class="bottom-nav-item">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M6.168 18.849A4 4 0 0 1 10 16h4a4 4 0 0 1 3.834 2.855"/></svg>
+    <span>Profile</span>
+  </a>
+  </div>
+</nav>
+
+</body>
+</html>

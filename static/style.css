@@ -1097,3 +1097,477 @@ body {
   background: #dde1f7;
   transform: scale(0.96);
 }
+
+
+/* ---------- Inline SVG icon sizing (replaces Tabler icon font) ---------- */
+.icon-btn svg,
+.action-left svg,
+.activity-left svg,
+.bottom-nav-item svg {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.action-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.activity-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.metric-icon {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.metric-icon.icon-success {
+  color: var(--status-verified);
+}
+
+.metric-icon.icon-danger {
+  color: #c62828;
+}
+
+.activity-row .icon-success {
+  color: var(--status-verified);
+}
+
+.activity-row .icon-danger {
+  color: #c62828;
+}
+
+
+/* ---------- Admin dashboard header: logo + profile above welcome text ---------- */
+.dash-header-top {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.dash-logo {
+  width: 44px;
+  height: 44px;
+  filter: brightness(0) invert(1);
+}
+
+.profile-btn-top {
+  margin-top: 6px;
+  margin-bottom: 10px;
+  display: inline-flex;
+}
+
+/* ---------- Inline SVG icon sizing (replaces Tabler icon font) ---------- */
+.icon-btn svg,
+.action-left svg,
+.activity-left svg,
+.bottom-nav-item svg {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.action-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.activity-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.metric-icon {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.metric-icon.icon-success {
+  color: var(--status-verified);
+}
+
+.metric-icon.icon-danger {
+  color: #c62828;
+}
+
+.activity-row .icon-success {
+  color: var(--status-verified);
+}
+
+.activity-row .icon-danger {
+  color: #c62828;
+}
+
+
+/* ---------- Admin dashboard header: logo + profile above welcome text ---------- */
+.dash-header-inner {
+  position: relative;
+}
+
+.dash-header-top {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.dash-logo-badge {
+ 
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  clip-path: polygon(50% 0%, 100% 20%, 100% 60%, 50% 100%, 0% 60%, 0% 20%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-btn-top {
+  margin-bottom: 8px;
+  display: inline-flex;
+}
+
+/* ---------- Inline SVG icon sizing (replaces Tabler icon font) ---------- */
+.icon-btn svg,
+.action-left svg,
+.activity-left svg,
+.bottom-nav-item svg {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.action-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.activity-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.metric-icon {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.metric-icon.icon-success {
+  color: var(--status-verified);
+}
+
+.metric-icon.icon-danger {
+  color: #c62828;
+}
+
+.activity-row .icon-success {
+  color: var(--status-verified);
+}
+
+.activity-row .icon-danger {
+  color: #c62828;
+}
+
+
+/* ---------- Admin dashboard header: logo + profile above welcome text ---------- */
+.dash-header-inner {
+  position: relative;
+}
+
+.dash-header-top {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.dash-logo-block {
+  position: absolute;
+  top: 50%;
+  right: 1.5rem;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+
+.dash-logo-text {
+  color: #fff;
+  font-weight: 700;
+  font-size: 8px;
+  line-height: 1.3;
+  margin: 0;
+  opacity: 0.8;
+}
+
+/* ---------- Inline SVG icon sizing (replaces Tabler icon font) ---------- */
+.icon-btn svg,
+.action-left svg,
+.activity-left svg,
+.bottom-nav-item svg {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.action-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.activity-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.metric-icon {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.metric-icon.icon-success {
+  color: var(--status-verified);
+}
+
+.metric-icon.icon-danger {
+  color: #c62828;
+}
+
+.activity-row .icon-success {
+  color: var(--status-verified);
+}
+
+.activity-row .icon-danger {
+  color: #c62828;
+}
+
+
+/* ---------- Metric cards as clickable links ---------- */
+.metric-card {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* ---------- Overview detail page ---------- */
+.detail-summary-card {
+  background: #fff;
+  border: 1px solid var(--border-gray);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+
+.detail-summary-value {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--brand-blue);
+  line-height: 1;
+}
+
+.detail-summary-label {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.detail-note {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 10px;
+  text-align: center;
+}
+
+
+/* ---------- Action buttons as links ---------- */
+.action-btn {
+  text-decoration: none;
+}
+
+/* ---------- Form fields (Register Student / Issue Certificate) ---------- */
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-label {
+  display: block;
+  font-size: 13px;
+  color: var(--text-dark);
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-gray);
+  border-radius: 6px;
+  font-size: 14px;
+  background: #fff;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--brand-blue);
+}
+
+.form-input[readonly] {
+  background: #f2f2f2;
+  color: var(--text-muted);
+}
+
+.btn-primary {
+  display: block;
+  width: 100%;
+  padding: 0.85rem;
+  background: var(--brand-blue);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background-color 0.15s ease;
+}
+
+.btn-primary:hover {
+  background: var(--brand-blue-dark);
+}
+
+.btn-secondary {
+  display: block;
+  width: 100%;
+  padding: 0.85rem;
+  background: #fff;
+  color: var(--brand-blue);
+  border: 2px solid var(--brand-blue);
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background-color 0.15s ease;
+}
+
+.btn-secondary:hover {
+  background: #eef0fc;
+}
+
+.form-btn-row {
+  margin-top: 6px;
+}
+
+.hash-preview-card {
+  background: var(--panel-bg, #f7f7fb);
+  border: 1px dashed var(--border-gray);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.hash-preview-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.hash-preview-value {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: Consolas, monospace;
+}
+
+/* ---------- Manage Certificate: filter tabs ---------- */
+.filter-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.filter-tab {
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-dark);
+  background: #fff;
+  border: 1px solid var(--border-gray);
+  text-decoration: none;
+}
+
+.filter-tab.active {
+  background: var(--brand-blue);
+  color: #fff;
+  border-color: var(--brand-blue);
+}
+
+/* ---------- Manage Certificate: simple default list ---------- */
+.cert-simple-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cert-simple-row {
+  background: #fff;
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: background-color 0.15s ease;
+}
+
+.cert-simple-row:hover {
+  background: #f5f7ff;
+}
+
+.cert-simple-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cert-simple-id {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.cert-simple-student {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+
+/* ---------- Admin profile avatar ---------- */
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--brand-blue);
+  color: #fff;
+  font-size: 28px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manage Certificate - Academic Credential Verification System</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="dash-body">
+
+<header class="dash-header">
+  <div class="dash-header-inner">
+    <div class="dash-header-top">
+      <a href="{{ url_for('admin_dashboard') }}" class="icon-btn" aria-label="Back">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6l6 6"/></svg>
+      </a>
+    </div>
+    <p class="dash-welcome">Quick Actions</p>
+    <h1 class="dash-role">Manage Certificate</h1>
+  </div>
+</header>
+
+<main class="dash-main">
+
+  <section class="dash-section">
+    <form class="search-bar" method="GET" action="{{ url_for('manage_certificates') }}">
+      <label for="search-cert" class="verify-label">Search by Student ID, name, certificate ID, or course</label>
+      <input type="text" id="search-cert" name="q" class="verify-input" placeholder="e.g. STU-1042" value="{{ query|default('') }}" style="margin-bottom:0;">
+      <button type="submit" class="btn-search">Search</button>
+    </form>
+    {% if query %}
+    <p class="detail-note" style="margin-top:8px; text-align:left;">
+      Showing results for "{{ query }}" &mdash;
+      <a href="{{ url_for('manage_certificates') }}" style="color:var(--brand-blue);">Clear search</a>
+    </p>
+    {% endif %}
+  </section>
+
+  <section class="dash-section">
+    <div class="filter-tabs">
+      <a href="{{ url_for('manage_certificates') }}" class="filter-tab {{ 'active' if not query }}">All</a>
+      <a href="{{ url_for('manage_certificates') }}?status=active" class="filter-tab">Active</a>
+      <a href="{{ url_for('manage_certificates') }}?status=revoked" class="filter-tab">Revoked</a>
+    </div>
+
+    {% if query %}
+    <div class="table-wrap">
+      <table class="credentials">
+        <thead>
+          <tr>
+            <th>Certificate ID</th>
+            <th>Student ID</th>
+            <th>Student</th>
+            <th>Course</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cert in certificates %}
+          <tr>
+            <td>{{ cert.id }}</td>
+            <td>{{ cert.student_id }}</td>
+            <td>{{ cert.student }}</td>
+            <td>{{ cert.course }}</td>
+            <td>
+              {% if cert.status == 'Active' %}
+              <span class="status-pill verified">Active</span>
+              {% else %}
+              <span class="status-pill pending" style="background:#fdeaea; color:#c62828;">Revoked</span>
+              {% endif %}
+            </td>
+            <td>
+              <div class="row-actions">
+                <button class="action-link" type="button">View</button>
+                {% if cert.status == 'Active' %}
+                <button class="action-link" type="button" style="color:#c62828;">Revoke</button>
+                {% else %}
+                <button class="action-link" type="button">Reinstate</button>
+                {% endif %}
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% if certificates|length == 0 %}
+    <p class="detail-note" style="margin-top:14px;">No certificates found matching your search.</p>
+    {% endif %}
+
+    {% else %}
+    <div class="cert-simple-list">
+      {% for cert in certificates %}
+      <div class="cert-simple-row">
+        <div class="cert-simple-info">
+          <span class="cert-simple-id">{{ cert.id }}</span>
+          <span class="cert-simple-student">{{ cert.student }}</span>
+        </div>
+        {% if cert.status == 'Active' %}
+        <span class="status-pill verified">Active</span>
+        {% else %}
+        <span class="status-pill pending" style="background:#fdeaea; color:#c62828;">Revoked</span>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </section>
+
+</main>
+
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+  <a href="{{ url_for('admin_dashboard') }}" class="bottom-nav-item">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l-2 0l9 -9l9 9l-2 0"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"/><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"/></svg>
+    <span>Dashboard</span>
+  </a>
+  <a href="{{ url_for('admin_students') }}" class="bottom-nav-item">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/></svg>
+    <span>Student</span>
+  </a>
+  <a href="{{ url_for('admin_certificates') }}" class="bottom-nav-item">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4"/><path d="M9.7 18.3l-.7 1.7l1.5 -.6l1.5 .6l-.7 -1.7"/><circle cx="11" cy="16" r="2.5"/></svg>
+    <span>Certificates</span>
+  </a>
+  <a href="{{ url_for('admin_profile') }}" class="bottom-nav-item">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M6.168 18.849A4 4 0 0 1 10 16h4a4 4 0 0 1 3.834 2.855"/></svg>
+    <span>Profile</span>
+  </a>
+  </div>
+</nav>
+
+</body>
+</html>

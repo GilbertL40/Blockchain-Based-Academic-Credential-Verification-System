@@ -5,21 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Administrator Dashboard - Academic Credential Verification System</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
 </head>
 <body class="dash-body">
 
 <header class="dash-header">
   <div class="dash-header-inner">
-  <div class="dash-header-top">
-    <button class="icon-btn" type="button" aria-label="Menu"><i class="ti ti-menu-2"></i></button>
-    <div class="dash-header-icons">
-      <button class="icon-btn" type="button" aria-label="Notifications"><i class="ti ti-bell"></i></button>
-      <button class="icon-btn" type="button" aria-label="Profile"><i class="ti ti-user-circle"></i></button>
+    <div class="dash-header-top">
+      <div class="dash-logo-block">
+        <div class="dash-logo-badge">
+          <img src="{{ url_for('static', filename='logo-icon.png') }}" alt="Academic Credential Verification System logo" width="15" height="15">
+        </div>
+        <p class="dash-logo-text">Academic Credential<br>Verification System</p>
+      </div>
     </div>
-  </div>
-  <p class="dash-welcome">Welcome back,</p>
-  <h1 class="dash-role">Administrator</h1>
+    <p class="dash-welcome">Welcome back,</p>
+    <h1 class="dash-role">Administrator</h1>
   </div>
 </header>
 
@@ -28,68 +28,86 @@
   <section class="dash-section">
     <h2 class="dash-section-title">Overview</h2>
     <div class="metric-grid">
-      <div class="metric-card">
-        <i class="ti ti-users metric-icon"></i>
+      <a class="metric-card" href="{{ url_for('admin_overview', category='students') }}">
+        <svg class="metric-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/></svg>
         <div class="metric-value">546</div>
         <div class="metric-label">Students</div>
-      </div>
-      <div class="metric-card">
-        <i class="ti ti-file-certificate metric-icon"></i>
+      </a>
+      <a class="metric-card" href="{{ url_for('admin_overview', category='certificates-issued') }}">
+        <svg class="metric-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4"/><path d="M9.7 18.3l-.7 1.7l1.5 -.6l1.5 .6l-.7 -1.7"/><circle cx="11" cy="16" r="2.5"/></svg>
         <div class="metric-value">736</div>
         <div class="metric-label">Certificates Issued</div>
-      </div>
-      <div class="metric-card">
-        <i class="ti ti-square-rounded-x metric-icon icon-danger"></i>
+      </a>
+      <a class="metric-card" href="{{ url_for('admin_overview', category='revoked-certificates') }}">
+        <svg class="metric-icon icon-danger" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M9 9l6 6"/><path d="M15 9l-6 6"/></svg>
         <div class="metric-value">211</div>
         <div class="metric-label">Revoked Certificates</div>
-      </div>
-      <div class="metric-card">
-        <i class="ti ti-square-rounded-check metric-icon icon-success"></i>
+      </a>
+      <a class="metric-card" href="{{ url_for('admin_overview', category='verified-certificates') }}">
+        <svg class="metric-icon icon-success" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M9 12l2 2l4 -4"/></svg>
         <div class="metric-value">571</div>
         <div class="metric-label">Verified Certificates</div>
-      </div>
+      </a>
     </div>
   </section>
 
   <section class="dash-section">
     <h2 class="dash-section-title">Quick Actions</h2>
     <div class="action-list">
-      <button type="button" class="action-btn action-blue">
-        <span class="action-left"><i class="ti ti-user-plus"></i>Register student</span>
-        <i class="ti ti-chevrons-right"></i>
-      </button>
-      <button type="button" class="action-btn action-green">
-        <span class="action-left"><i class="ti ti-file-certificate"></i>Issue Certificate</span>
-        <i class="ti ti-chevrons-right"></i>
-      </button>
-      <button type="button" class="action-btn action-purple">
-        <span class="action-left"><i class="ti ti-files"></i>Manage Certificate</span>
-        <i class="ti ti-chevrons-right"></i>
-      </button>
+      <a href="{{ url_for('register_student') }}" class="action-btn action-blue">
+        <span class="action-left">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/><path d="M16 11h6"/><path d="M19 8v6"/></svg>
+          Register student
+        </span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l5 5l-5 5"/><path d="M13 7l5 5l-5 5"/></svg>
+      </a>
+      <a href="{{ url_for('issue_certificate') }}" class="action-btn action-green">
+        <span class="action-left">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4"/><path d="M9.7 18.3l-.7 1.7l1.5 -.6l1.5 .6l-.7 -1.7"/><circle cx="11" cy="16" r="2.5"/></svg>
+          Issue Certificate
+        </span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l5 5l-5 5"/><path d="M13 7l5 5l-5 5"/></svg>
+      </a>
+      <a href="{{ url_for('manage_certificates') }}" class="action-btn action-purple">
+        <span class="action-left">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3v4a1 1 0 0 0 1 1h4"/><path d="M18 17h-8a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l6 6v6a2 2 0 0 1 -2 2z"/><path d="M16 17v2a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2"/></svg>
+          Manage Certificate
+        </span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l5 5l-5 5"/><path d="M13 7l5 5l-5 5"/></svg>
+      </a>
     </div>
   </section>
 
   <section class="dash-section">
     <div class="dash-section-header">
       <h2 class="dash-section-title">Recent Activity</h2>
-      <a href="#" class="view-all-link">View All</a>
+      <a href="{{ url_for('admin_activity_all') }}" class="view-all-link">View All</a>
     </div>
     <div class="activity-list">
-      <div class="activity-row">
-        <span class="activity-left"><i class="ti ti-users"></i>Mac Daniel</span>
+      <a href="{{ url_for('admin_activity_detail', student_id='STU-1042') }}" class="activity-row">
+        <span class="activity-left">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/></svg>
+          Mac Daniel
+        </span>
         <span class="activity-status status-issued">Issued</span>
-        <i class="ti ti-square-rounded-check icon-success"></i>
-      </div>
-      <div class="activity-row">
-        <span class="activity-left"><i class="ti ti-users"></i>Jan Allan</span>
+        <svg class="icon-success" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M9 12l2 2l4 -4"/></svg>
+      </a>
+      <a href="{{ url_for('admin_activity_detail', student_id='STU-1043') }}" class="activity-row">
+        <span class="activity-left">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/></svg>
+          Jan Allan
+        </span>
         <span class="activity-status status-revoked">Revoked</span>
-        <i class="ti ti-square-rounded-x icon-danger"></i>
-      </div>
-      <div class="activity-row">
-        <span class="activity-left"><i class="ti ti-users"></i>James Aron</span>
+        <svg class="icon-danger" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M9 9l6 6"/><path d="M15 9l-6 6"/></svg>
+      </a>
+      <a href="{{ url_for('admin_activity_detail', student_id='STU-1044') }}" class="activity-row">
+        <span class="activity-left">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/></svg>
+          James Aron
+        </span>
         <span class="activity-status status-issued">Issued</span>
-        <i class="ti ti-square-rounded-check icon-success"></i>
-      </div>
+        <svg class="icon-success" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M9 12l2 2l4 -4"/></svg>
+      </a>
     </div>
   </section>
 
@@ -97,10 +115,22 @@
 
 <nav class="bottom-nav">
   <div class="bottom-nav-inner">
-<a href="#" class="bottom-nav-item active"><i class="ti ti-home"></i><span>Dashboard</span></a>
-<a href="#" class="bottom-nav-item"><i class="ti ti-users"></i><span>Student</span></a>
-<a href="#" class="bottom-nav-item"><i class="ti ti-file-certificate"></i><span>Certificates</span></a>
-<a href="#" class="bottom-nav-item"><i class="ti ti-user-circle"></i><span>Profile</span></a>
+  <a href="#" class="bottom-nav-item active">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l-2 0l9 -9l9 9l-2 0"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"/><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"/></svg>
+    <span>Dashboard</span>
+  </a>
+  <a href="{{ url_for('admin_students') }}" class="bottom-nav-item">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/></svg>
+    <span>Student</span>
+  </a>
+  <a href="{{ url_for('admin_certificates') }}" class="bottom-nav-item">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4"/><path d="M9.7 18.3l-.7 1.7l1.5 -.6l1.5 .6l-.7 -1.7"/><circle cx="11" cy="16" r="2.5"/></svg>
+    <span>Certificates</span>
+  </a>
+  <a href="{{ url_for('admin_profile') }}" class="bottom-nav-item">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M6.168 18.849A4 4 0 0 1 10 16h4a4 4 0 0 1 3.834 2.855"/></svg>
+    <span>Profile</span>
+  </a>
   </div>
 </nav>
 
