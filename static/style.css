@@ -654,6 +654,41 @@ table.credentials tr:last-child td {
   font-size: 15px;
   font-weight: 600;
   color: #fff;
+  text-align: center;
+  margin: 0 0 0.5rem;
+}
+
+.cred-action-count {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--brand-blue);
+}
+
+.cred-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.cred-card-header .cred-title {
+  margin: 0;
+}
+
+.cred-remove-btn {
+  background: none;
+  border: none;
+  color: #c62828;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 2px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.cred-remove-btn:hover {
+  color: #a31f1f;
 }
 
 .cred-list {

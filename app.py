@@ -237,6 +237,22 @@ def admin_profile():
 def student_dashboard():
     return render_template('student_dashboard.html')
 
+@app.route('/student/certificates')
+def student_certificates():
+    return render_template('student_certificates.html')
+
+@app.route('/student/certificates/add', methods=['GET', 'POST'])
+def add_student_certificate():
+    return render_template('add_student_certificate.html')
+
+@app.route('/student/share')
+def student_share():
+    return render_template('student_share.html')
+
+@app.route('/student/profile', methods=['GET', 'POST'])
+def student_profile():
+    return render_template('student_profile.html')
+
 @app.route('/verifier')
 def verifier_dashboard():
     return render_template('verifier_dashboard.html')

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Certificate - Academic Credential Verification System</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.46.0/tabler-icons.min.css">
+</head>
+<body class="dash-body">
+
+<header class="dash-header">
+  <div class="dash-header-inner">
+    <div class="dash-header-top">
+      <a href="{{ url_for('student_certificates') }}" class="icon-btn" aria-label="Back">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6l6 6"/></svg>
+      </a>
+    </div>
+    <p class="dash-welcome">My Certificates</p>
+    <h1 class="dash-role">Add Certificate</h1>
+  </div>
+</header>
+
+<main class="dash-main">
+  <section class="dash-section">
+    <form method="POST" action="{{ url_for('add_student_certificate') }}">
+
+      <div class="form-group">
+        <label class="form-label" for="title">Certificate Title</label>
+        <input class="form-input" type="text" id="title" name="title" placeholder="e.g. Bachelor In Information Technology" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="institution">Issuing Institution</label>
+        <input class="form-input" type="text" id="institution" name="institution" placeholder="e.g. University of Papua New Guinea">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="year">Year Awarded</label>
+        <input class="form-input" type="number" id="year" name="year" placeholder="e.g. 2026" min="2000" max="2100">
+      </div>
+
+      <button type="submit" class="btn-primary">Add Certificate</button>
+    </form>
+  </section>
+</main>
+
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+  <a href="{{ url_for('student_dashboard') }}" class="bottom-nav-item"><i class="ti ti-home"></i><span>Dashboard</span></a>
+  <a href="{{ url_for('student_certificates') }}" class="bottom-nav-item active"><i class="ti ti-file-certificate"></i><span>Certificates</span></a>
+  <a href="{{ url_for('student_share') }}" class="bottom-nav-item"><i class="ti ti-share-2"></i><span>Share</span></a>
+  <a href="{{ url_for('student_profile') }}" class="bottom-nav-item"><i class="ti ti-user-circle"></i><span>Profile</span></a>
+  </div>
+</nav>
+
+</body>
+</html>

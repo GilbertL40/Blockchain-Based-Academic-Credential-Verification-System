@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile - Academic Credential Verification System</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.46.0/tabler-icons.min.css">
+</head>
+<body class="dash-body">
+
+<header class="dash-header">
+  <div class="dash-header-inner">
+    <div class="dash-header-top">
+      <div class="dash-logo-block">
+        <div class="dash-logo-badge">
+          <img src="{{ url_for('static', filename='logo-icon.png') }}" alt="logo" width="15" height="15">
+        </div>
+        <p class="dash-logo-text">Academic Credential<br>Verification System</p>
+      </div>
+    </div>
+    <p class="dash-welcome">Account</p>
+    <h1 class="dash-role">My Profile</h1>
+  </div>
+</header>
+
+<main class="dash-main">
+
+  <section class="dash-section" style="text-align:center;">
+    <div class="profile-avatar">MD</div>
+    <button type="button" class="btn-secondary" style="width:auto; display:inline-block; padding:0.5rem 1.2rem; margin-top:10px;">Change Photo</button>
+  </section>
+
+  <section class="dash-section">
+    <form method="POST" action="{{ url_for('student_profile') }}">
+
+      <div class="form-group">
+        <label class="form-label" for="full_name">Full Name</label>
+        <input class="form-input" type="text" id="full_name" name="full_name" value="Mac Daniel">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="email">Email Address</label>
+        <input class="form-input" type="email" id="email" name="email" value="mac.daniel@student.acvs.edu">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="phone">Phone Number</label>
+        <input class="form-input" type="tel" id="phone" name="phone" value="">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="program">Program</label>
+        <input class="form-input" type="text" id="program" name="program" value="BSc Information Technology">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="bio">Bio</label>
+        <textarea class="form-input" id="bio" name="bio" rows="4"></textarea>
+      </div>
+
+      <button type="submit" class="btn-primary">Save Profile</button>
+    </form>
+  </section>
+
+  <section class="dash-section">
+    <h2 class="dash-section-title">Account Security</h2>
+    <button type="button" class="btn-secondary">Change Password</button>
+  </section>
+
+</main>
+
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+  <a href="{{ url_for('student_dashboard') }}" class="bottom-nav-item"><i class="ti ti-home"></i><span>Dashboard</span></a>
+  <a href="{{ url_for('student_certificates') }}" class="bottom-nav-item"><i class="ti ti-file-certificate"></i><span>Certificates</span></a>
+  <a href="{{ url_for('student_share') }}" class="bottom-nav-item"><i class="ti ti-share-2"></i><span>Share</span></a>
+  <a href="{{ url_for('student_profile') }}" class="bottom-nav-item active"><i class="ti ti-user-circle"></i><span>Profile</span></a>
+  </div>
+</nav>
+
+</body>
+</html>

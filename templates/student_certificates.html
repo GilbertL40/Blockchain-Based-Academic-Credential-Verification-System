@@ -3,39 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Student Dashboard - Academic Credential Verification System</title>
+<title>My Certificates - Academic Credential Verification System</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.46.0/tabler-icons.min.css">
 </head>
 <body class="dash-body">
 
-<i class="ti ti-shield-check bg-icon bg-icon-1" aria-hidden="true"></i>
-<i class="ti ti-certificate bg-icon bg-icon-2" aria-hidden="true"></i>
-<i class="ti ti-lock bg-icon bg-icon-3" aria-hidden="true"></i>
-
 <header class="dash-header">
   <div class="dash-header-inner">
-  <div class="dash-header-top">
-    <div class="dash-logo-block">
-      <div class="dash-logo-badge">
-        <img src="{{ url_for('static', filename='logo-icon.png') }}" alt="Academic Credential Verification System logo" width="15" height="15">
+    <div class="dash-header-top">
+      <div class="dash-logo-block">
+        <div class="dash-logo-badge">
+          <img src="{{ url_for('static', filename='logo-icon.png') }}" alt="Academic Credential Verification System logo" width="15" height="15">
+        </div>
+        <p class="dash-logo-text">Academic Credential<br>Verification System</p>
       </div>
-      <p class="dash-logo-text">Academic Credential<br>Verification System</p>
+      <p class="dash-header-title">My Certificates</p>
     </div>
-    <p class="dash-header-title">My Certificates</p>
-  </div>
-  <p class="dash-welcome">Welcome back,</p>
-  <h1 class="dash-role">Student</h1>
+    <p class="dash-welcome">Manage</p>
+    <h1 class="dash-role">Certificates</h1>
   </div>
 </header>
 
 <main class="dash-main">
 
   <section class="dash-section">
+    <a href="{{ url_for('add_student_certificate') }}" class="btn-primary" style="display:flex; align-items:center; justify-content:center; gap:6px; text-decoration:none; margin-bottom:14px;">
+      <i class="ti ti-plus"></i>
+      Add Certificate
+    </a>
+
     <div class="cred-list">
 
       <div class="cred-card">
-        <h3 class="cred-title">Bachelor In Information Technology</h3>
+        <div class="cred-card-header">
+          <h3 class="cred-title">Bachelor In Information Technology</h3>
+          <button type="button" class="cred-remove-btn" aria-label="Remove certificate" title="Remove">
+            <i class="ti ti-trash"></i>
+          </button>
+        </div>
         <div class="cred-actions">
           <button type="button" class="cred-action-btn">
             <i class="ti ti-eye"></i>
@@ -54,7 +60,12 @@
       </div>
 
       <div class="cred-card">
-        <h3 class="cred-title">Diploma In Information Technology</h3>
+        <div class="cred-card-header">
+          <h3 class="cred-title">Diploma In Information Technology</h3>
+          <button type="button" class="cred-remove-btn" aria-label="Remove certificate" title="Remove">
+            <i class="ti ti-trash"></i>
+          </button>
+        </div>
         <div class="cred-actions">
           <button type="button" class="cred-action-btn">
             <i class="ti ti-eye"></i>
@@ -73,7 +84,12 @@
       </div>
 
       <div class="cred-card">
-        <h3 class="cred-title">Grade 12 Certificate</h3>
+        <div class="cred-card-header">
+          <h3 class="cred-title">Grade 12 Certificate</h3>
+          <button type="button" class="cred-remove-btn" aria-label="Remove certificate" title="Remove">
+            <i class="ti ti-trash"></i>
+          </button>
+        </div>
         <div class="cred-actions">
           <button type="button" class="cred-action-btn">
             <i class="ti ti-eye"></i>
@@ -98,8 +114,8 @@
 
 <nav class="bottom-nav">
   <div class="bottom-nav-inner">
-  <a href="{{ url_for('student_dashboard') }}" class="bottom-nav-item active"><i class="ti ti-home"></i><span>Dashboard</span></a>
-  <a href="{{ url_for('student_certificates') }}" class="bottom-nav-item"><i class="ti ti-file-certificate"></i><span>Certificates</span></a>
+  <a href="{{ url_for('student_dashboard') }}" class="bottom-nav-item"><i class="ti ti-home"></i><span>Dashboard</span></a>
+  <a href="{{ url_for('student_certificates') }}" class="bottom-nav-item active"><i class="ti ti-file-certificate"></i><span>Certificates</span></a>
   <a href="{{ url_for('student_share') }}" class="bottom-nav-item"><i class="ti ti-share-2"></i><span>Share</span></a>
   <a href="{{ url_for('student_profile') }}" class="bottom-nav-item"><i class="ti ti-user-circle"></i><span>Profile</span></a>
   </div>

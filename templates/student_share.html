@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Share Certificates - Academic Credential Verification System</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.46.0/tabler-icons.min.css">
+</head>
+<body class="dash-body">
+
+<header class="dash-header">
+  <div class="dash-header-inner">
+    <div class="dash-header-top">
+      <div class="dash-logo-block">
+        <div class="dash-logo-badge">
+          <img src="{{ url_for('static', filename='logo-icon.png') }}" alt="Academic Credential Verification System logo" width="15" height="15">
+        </div>
+        <p class="dash-logo-text">Academic Credential<br>Verification System</p>
+      </div>
+      <p class="dash-header-title">Share</p>
+    </div>
+    <p class="dash-welcome">Share with</p>
+    <h1 class="dash-role">Others</h1>
+  </div>
+</header>
+
+<main class="dash-main">
+
+  <section class="dash-section">
+    <p style="font-size:13px; color:var(--text-muted); margin:0 0 14px;">Generate a shareable link for a certificate so employers or institutions can verify it.</p>
+
+    <div class="cred-list">
+
+      <div class="cred-card">
+        <h3 class="cred-title">Bachelor In Information Technology</h3>
+        <div class="cred-actions" style="grid-template-columns:1fr;">
+          <button type="button" class="cred-action-btn" style="flex-direction:row; justify-content:center; gap:8px;">
+            <i class="ti ti-link"></i>
+            <span>Share Link</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="cred-card">
+        <h3 class="cred-title">Diploma In Information Technology</h3>
+        <div class="cred-actions" style="grid-template-columns:1fr;">
+          <button type="button" class="cred-action-btn" style="flex-direction:row; justify-content:center; gap:8px;">
+            <i class="ti ti-link"></i>
+            <span>Share Link</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="cred-card">
+        <h3 class="cred-title">Grade 12 Certificate</h3>
+        <div class="cred-actions" style="grid-template-columns:1fr;">
+          <button type="button" class="cred-action-btn" style="flex-direction:row; justify-content:center; gap:8px;">
+            <i class="ti ti-link"></i>
+            <span>Share Link</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+  <a href="{{ url_for('student_dashboard') }}" class="bottom-nav-item"><i class="ti ti-home"></i><span>Dashboard</span></a>
+  <a href="{{ url_for('student_certificates') }}" class="bottom-nav-item"><i class="ti ti-file-certificate"></i><span>Certificates</span></a>
+  <a href="{{ url_for('student_share') }}" class="bottom-nav-item active"><i class="ti ti-share-2"></i><span>Share</span></a>
+  <a href="{{ url_for('student_profile') }}" class="bottom-nav-item"><i class="ti ti-user-circle"></i><span>Profile</span></a>
+  </div>
+</nav>
+
+</body>
+</html>
