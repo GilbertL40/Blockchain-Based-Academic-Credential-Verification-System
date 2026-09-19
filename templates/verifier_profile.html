@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile - Academic Credential Verification System</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.46.0/tabler-icons.min.css">
+</head>
+<body class="dash-body">
+
+<header class="dash-header">
+  <div class="dash-header-inner">
+    <p class="dash-welcome">Account</p>
+    <h1 class="dash-role">My Profile</h1>
+  </div>
+</header>
+
+<main class="dash-main">
+
+  <section class="dash-section" style="text-align:center;">
+    <div class="profile-avatar">{{ verifier.initials }}</div>
+    <button type="button" class="btn-secondary" style="width:auto; display:inline-block; padding:0.5rem 1.2rem; margin-top:10px;">Change Photo</button>
+  </section>
+
+  <section class="dash-section">
+    <form method="POST" action="{{ url_for('verifier_profile') }}">
+
+      <div class="form-group">
+        <label class="form-label" for="full_name">Full Name</label>
+        <input class="form-input" type="text" id="full_name" name="full_name" value="{{ verifier.name }}">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="email">Email Address</label>
+        <input class="form-input" type="email" id="email" name="email" value="{{ verifier.email }}">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="phone">Phone Number</label>
+        <input class="form-input" type="tel" id="phone" name="phone" value="{{ verifier.phone }}">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="organization">Organization</label>
+        <input class="form-input" type="text" id="organization" name="organization" value="{{ verifier.organization }}">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="bio">Bio</label>
+        <textarea class="form-input" id="bio" name="bio" rows="4">{{ verifier.bio }}</textarea>
+      </div>
+
+      <button type="submit" class="btn-primary">Save Profile</button>
+    </form>
+  </section>
+
+  <section class="dash-section">
+    <h2 class="dash-section-title">Account Security</h2>
+    <button type="button" class="btn-secondary">Change Password</button>
+  </section>
+
+</main>
+
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+  <a href="{{ url_for('verifier_dashboard') }}" class="bottom-nav-item"><i class="ti ti-home"></i><span>Home</span></a>
+  <a href="{{ url_for('verifier_history') }}" class="bottom-nav-item"><i class="ti ti-clock-hour-4"></i><span>History</span></a>
+  <a href="{{ url_for('verifier_share') }}" class="bottom-nav-item"><i class="ti ti-share-2"></i><span>Share</span></a>
+  <a href="{{ url_for('verifier_profile') }}" class="bottom-nav-item active"><i class="ti ti-user-circle"></i><span>Profile</span></a>
+  </div>
+</nav>
+
+</body>
+</html>

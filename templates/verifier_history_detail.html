@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verification Details - Academic Credential Verification System</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.46.0/tabler-icons.min.css">
+</head>
+<body class="dash-body">
+
+<header class="dash-header">
+  <div class="dash-header-inner">
+    <div class="dash-header-top">
+      <a href="{{ url_for('verifier_history') }}" class="icon-btn" aria-label="Back">
+        <i class="ti ti-chevron-left"></i>
+      </a>
+    </div>
+    <p class="dash-welcome">Verification History</p>
+    <h1 class="dash-role">{{ record.student }}</h1>
+  </div>
+</header>
+
+<main class="dash-main">
+  <section class="dash-section">
+    {% if record.result == 'Verified' %}
+    <div class="result-success-card">
+      <span>Verification Successful !</span>
+      <i class="ti ti-square-rounded-check"></i>
+    </div>
+    {% else %}
+    <div class="result-success-card" style="background:#c62828;">
+      <span>Verification Failed &mdash; Fake Certificate</span>
+      <i class="ti ti-square-rounded-x"></i>
+    </div>
+    {% endif %}
+
+    <div class="cert-info-card">
+      <h3 class="cert-info-title">Certificate Information</h3>
+      <dl class="cert-info-list">
+        <div class="cert-info-row">
+          <dt>Student Name:</dt>
+          <dd>{{ record.student }}</dd>
+        </div>
+        <div class="cert-info-row">
+          <dt>Qualification:</dt>
+          <dd>{{ record.qualification }}</dd>
+        </div>
+        <div class="cert-info-row">
+          <dt>Certificate Number:</dt>
+          <dd>{{ record.cert_id }}</dd>
+        </div>
+        <div class="cert-info-row">
+          <dt>Institution:</dt>
+          <dd>{{ record.institution }}</dd>
+        </div>
+        <div class="cert-info-row">
+          <dt>Date Checked:</dt>
+          <dd>{{ record.date }}</dd>
+        </div>
+        {% if record.result != 'Verified' %}
+        <div class="cert-info-row">
+          <dt>Reason:</dt>
+          <dd>{{ record.reason }}</dd>
+        </div>
+        {% endif %}
+      </dl>
+    </div>
+  </section>
+</main>
+
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+  <a href="{{ url_for('verifier_dashboard') }}" class="bottom-nav-item"><i class="ti ti-home"></i><span>Home</span></a>
+  <a href="{{ url_for('verifier_history') }}" class="bottom-nav-item active"><i class="ti ti-clock-hour-4"></i><span>History</span></a>
+  <a href="{{ url_for('verifier_share') }}" class="bottom-nav-item"><i class="ti ti-share-2"></i><span>Share</span></a>
+  <a href="{{ url_for('verifier_profile') }}" class="bottom-nav-item"><i class="ti ti-user-circle"></i><span>Profile</span></a>
+  </div>
+</nav>
+
+</body>
+</html>

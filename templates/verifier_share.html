@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Share Verification - Academic Credential Verification System</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.46.0/tabler-icons.min.css">
+</head>
+<body class="dash-body">
+
+<header class="dash-header">
+  <div class="dash-header-inner">
+    <div class="dash-header-top">
+      <p class="dash-header-title">Share</p>
+    </div>
+    <p class="dash-welcome">Share a</p>
+    <h1 class="dash-role">Verification Result</h1>
+  </div>
+</header>
+
+<main class="dash-main">
+
+  <section class="dash-section">
+    <p style="font-size:13px; color:var(--text-muted); margin:0 0 14px;">Share a verification outcome with the issuing school, the student, or another employer.</p>
+
+    <div class="cred-list">
+      {% for record in history %}
+      <div class="cred-card">
+        <div class="cred-card-header">
+          <h3 class="cred-title">{{ record.student }} &mdash; {{ record.qualification }}</h3>
+          {% if record.result == 'Verified' %}
+          <span class="activity-status status-issued">Verified</span>
+          {% else %}
+          <span class="activity-status status-revoked">Invalid</span>
+          {% endif %}
+        </div>
+        <div class="cred-actions">
+          <button type="button" class="cred-action-btn share-btn" data-record="{{ record.id }}" data-target="School">
+            <i class="ti ti-building"></i>
+            <span>School</span>
+          </button>
+          <button type="button" class="cred-action-btn share-btn" data-record="{{ record.id }}" data-target="Student">
+            <i class="ti ti-user"></i>
+            <span>Student</span>
+          </button>
+          <button type="button" class="cred-action-btn share-btn" data-record="{{ record.id }}" data-target="Other Verifiers">
+            <i class="ti ti-users"></i>
+            <span>Other Verifiers</span>
+          </button>
+        </div>
+        <p class="share-status" id="share-status-{{ record.id }}" style="font-size:12px; font-weight:600; color:var(--brand-blue); margin:10px 0 0; min-height:14px;"></p>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+</main>
+
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+  <a href="{{ url_for('verifier_dashboard') }}" class="bottom-nav-item"><i class="ti ti-home"></i><span>Home</span></a>
+  <a href="{{ url_for('verifier_history') }}" class="bottom-nav-item"><i class="ti ti-clock-hour-4"></i><span>History</span></a>
+  <a href="{{ url_for('verifier_share') }}" class="bottom-nav-item active"><i class="ti ti-share-2"></i><span>Share</span></a>
+  <a href="{{ url_for('verifier_profile') }}" class="bottom-nav-item"><i class="ti ti-user-circle"></i><span>Profile</span></a>
+  </div>
+</nav>
+
+<script>
+document.querySelectorAll('.share-btn').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var recordId = btn.getAttribute('data-record');
+    var target = btn.getAttribute('data-target');
+    var status = document.getElementById('share-status-' + recordId);
+    if (status) {
+      status.textContent = 'Shared with ' + target + ' ✓';
+    }
+  });
+});
+</script>
+
+</body>
+</html>

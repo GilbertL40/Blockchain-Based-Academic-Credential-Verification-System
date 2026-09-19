@@ -95,13 +95,43 @@ ADMIN_PROFILE = {
     'initials': 'AU',
 }
 
+VERIFICATION_HISTORY = [
+    {'id': 'VER-3001', 'cert_id': 'CERT-8821', 'student': 'Mac Daniel', 'qualification': 'BSc Information Technology', 'institution': 'Academic Credential Verification System', 'date': 'Sep 10, 2026', 'result': 'Verified', 'reason': ''},
+    {'id': 'VER-3002', 'cert_id': 'CERT-8830', 'student': 'James Aron', 'qualification': 'BSc Computer Science', 'institution': 'Academic Credential Verification System', 'date': 'Sep 12, 2026', 'result': 'Verified', 'reason': ''},
+    {'id': 'VER-3003', 'cert_id': 'CERT-9911', 'student': 'Kevin Watu', 'qualification': 'Diploma in Business', 'institution': 'Unknown Institution', 'date': 'Sep 14, 2026', 'result': 'Failed', 'reason': 'Certificate number not found in registry.'},
+    {'id': 'VER-3004', 'cert_id': 'CERT-8834', 'student': 'Priya Nathan', 'qualification': 'Diploma in Business', 'institution': 'Academic Credential Verification System', 'date': 'Sep 15, 2026', 'result': 'Verified', 'reason': ''},
+    {'id': 'VER-3005', 'cert_id': 'CERT-7710', 'student': 'Jan Allan', 'qualification': 'Diploma in Information Technology', 'institution': 'Academic Credential Verification System', 'date': 'Sep 16, 2026', 'result': 'Failed', 'reason': 'Certificate has been revoked by the issuing institution.'},
+]
+
+VERIFIER_PROFILE = {
+    'name': 'Alex Morgan',
+    'email': 'alex.morgan@acmecorp.com',
+    'phone': '',
+    'organization': 'Acme Corp HR',
+    'bio': '',
+    'initials': 'AM',
+}
+
 
 @app.route('/')
 def home():
     return render_template('login.html')
 
+DASHBOARD_ROUTES = [
+    ('admin', 'admin_dashboard'),
+    ('student', 'student_dashboard'),
+    ('verifier', 'verifier_dashboard'),
+]
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        name = request.form.get('name', '').strip().lower()
+        for suffix, endpoint in DASHBOARD_ROUTES:
+            if name.endswith(suffix):
+                return redirect(url_for(endpoint))
+        error = "Enter a name ending in “admin”, “student”, or “verifier” to continue."
+        return render_template('login.html', error=error, name=request.form.get('name', ''))
     return render_template('login.html')
 
 @app.route('/admin')
@@ -256,6 +286,31 @@ def student_profile():
 @app.route('/verifier')
 def verifier_dashboard():
     return render_template('verifier_dashboard.html')
+
+@app.route('/verifier/history')
+def verifier_history():
+    return render_template('verifier_history.html', history=VERIFICATION_HISTORY)
+
+@app.route('/verifier/history/<record_id>')
+def verifier_history_detail(record_id):
+    record = next((r for r in VERIFICATION_HISTORY if r['id'] == record_id), None)
+    if not record:
+        return "Record not found", 404
+    return render_template('verifier_history_detail.html', record=record)
+
+@app.route('/verifier/share')
+def verifier_share():
+    return render_template('verifier_share.html', history=VERIFICATION_HISTORY)
+
+@app.route('/verifier/profile', methods=['GET', 'POST'])
+def verifier_profile():
+    if request.method == 'POST':
+        VERIFIER_PROFILE['name'] = request.form.get('full_name', VERIFIER_PROFILE['name'])
+        VERIFIER_PROFILE['email'] = request.form.get('email', VERIFIER_PROFILE['email'])
+        VERIFIER_PROFILE['phone'] = request.form.get('phone', VERIFIER_PROFILE['phone'])
+        VERIFIER_PROFILE['organization'] = request.form.get('organization', VERIFIER_PROFILE['organization'])
+        VERIFIER_PROFILE['bio'] = request.form.get('bio', VERIFIER_PROFILE['bio'])
+    return render_template('verifier_profile.html', verifier=VERIFIER_PROFILE)
 
 if __name__ == '__main__':
     app.run(debug=True)

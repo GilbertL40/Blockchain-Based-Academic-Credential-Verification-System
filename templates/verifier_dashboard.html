@@ -5,22 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Verify Certificates - Academic Credential Verification System</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.46.0/tabler-icons.min.css">
 </head>
 <body class="dash-body">
 
 <header class="dash-header">
   <div class="dash-header-inner">
   <div class="dash-header-top">
-    <button class="icon-btn" type="button" aria-label="Menu"><i class="ti ti-menu-2"></i></button>
-    <span class="dash-header-title">Verify Certificates</span>
-    <div class="dash-header-icons">
-      <button class="icon-btn" type="button" aria-label="Notifications"><i class="ti ti-bell"></i></button>
-      <button class="icon-btn" type="button" aria-label="Profile"><i class="ti ti-user-circle"></i></button>
-    </div>
+    <p class="dash-header-title">Verify Certificates</p>
   </div>
-  <p class="dash-welcome">Welcome back,</p>
-  <h1 class="dash-role">Employer</h1>
+  <div class="dash-role-row">
+    <div class="dash-logo-block">
+      <div class="dash-logo-badge">
+        <img src="{{ url_for('static', filename='logo-icon.png') }}" alt="Academic Credential Verification System logo" width="15" height="15">
+      </div>
+      <p class="dash-logo-text">Academic Credential<br>Verification System</p>
+    </div>
+    <p class="dash-welcome">Welcome back,</p>
+    <h1 class="dash-role">Employer</h1>
+  </div>
   </div>
 </header>
 
@@ -80,10 +83,10 @@
 
 <nav class="bottom-nav">
   <div class="bottom-nav-inner">
-  <a href="#" class="bottom-nav-item active"><i class="ti ti-home"></i><span>Home</span></a>
-  <a href="#" class="bottom-nav-item"><i class="ti ti-clock-hour-4"></i><span>History</span></a>
-  <a href="#" class="bottom-nav-item"><i class="ti ti-share-2"></i><span>Share</span></a>
-  <a href="#" class="bottom-nav-item"><i class="ti ti-user-circle"></i><span>Profile</span></a>
+  <a href="{{ url_for('verifier_dashboard') }}" class="bottom-nav-item active"><i class="ti ti-home"></i><span>Home</span></a>
+  <a href="{{ url_for('verifier_history') }}" class="bottom-nav-item"><i class="ti ti-clock-hour-4"></i><span>History</span></a>
+  <a href="{{ url_for('verifier_share') }}" class="bottom-nav-item"><i class="ti ti-share-2"></i><span>Share</span></a>
+  <a href="{{ url_for('verifier_profile') }}" class="bottom-nav-item"><i class="ti ti-user-circle"></i><span>Profile</span></a>
   </div>
 </nav>
 

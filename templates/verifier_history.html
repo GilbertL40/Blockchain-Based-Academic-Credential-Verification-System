@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verification History - Academic Credential Verification System</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.46.0/tabler-icons.min.css">
+</head>
+<body class="dash-body">
+
+<header class="dash-header">
+  <div class="dash-header-inner">
+    <div class="dash-header-top">
+      <p class="dash-header-title">History</p>
+    </div>
+    <p class="dash-welcome">Past</p>
+    <h1 class="dash-role">Verifications</h1>
+  </div>
+</header>
+
+<main class="dash-main">
+
+  <section class="dash-section">
+    <div class="activity-list">
+      {% for record in history %}
+      <a href="{{ url_for('verifier_history_detail', record_id=record.id) }}" class="activity-row">
+        <span class="activity-left">
+          <i class="ti ti-file-certificate"></i>
+          {{ record.student }} &mdash; {{ record.qualification }}
+        </span>
+        {% if record.result == 'Verified' %}
+        <span class="activity-status status-issued">Verified</span>
+        <i class="ti ti-square-rounded-check icon-success"></i>
+        {% else %}
+        <span class="activity-status status-revoked">Fake</span>
+        <i class="ti ti-square-rounded-x icon-danger"></i>
+        {% endif %}
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+</main>
+
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+  <a href="{{ url_for('verifier_dashboard') }}" class="bottom-nav-item"><i class="ti ti-home"></i><span>Home</span></a>
+  <a href="{{ url_for('verifier_history') }}" class="bottom-nav-item active"><i class="ti ti-clock-hour-4"></i><span>History</span></a>
+  <a href="{{ url_for('verifier_share') }}" class="bottom-nav-item"><i class="ti ti-share-2"></i><span>Share</span></a>
+  <a href="{{ url_for('verifier_profile') }}" class="bottom-nav-item"><i class="ti ti-user-circle"></i><span>Profile</span></a>
+  </div>
+</nav>
+
+</body>
+</html>
