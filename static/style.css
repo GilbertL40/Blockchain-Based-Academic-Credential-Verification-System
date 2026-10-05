@@ -14,11 +14,16 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   color: var(--text-dark);
   background: #f7f7fb;
+  overflow-x: hidden;
 }
 
 a {
@@ -461,6 +466,7 @@ table.credentials tr:last-child td {
 }
 
 .dash-main {
+  width: 100%;
   max-width: 420px;
   margin: 0 auto;
   padding: 1.5rem 1.5rem 0;
@@ -492,7 +498,7 @@ table.credentials tr:last-child td {
 /* Metric cards */
 .metric-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 12px;
 }
 
@@ -533,8 +539,8 @@ table.credentials tr:last-child td {
 
 /* Quick action buttons */
 .action-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 10px;
 }
 
@@ -575,8 +581,8 @@ table.credentials tr:last-child td {
 
 /* Recent activity */
 .activity-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 10px;
 }
 
@@ -702,8 +708,8 @@ table.credentials tr:last-child td {
 }
 
 .cred-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 14px;
 }
 
@@ -1071,6 +1077,7 @@ body {
 }
 
 .dash-main {
+  width: 100%;
   max-width: 420px;
   margin: 0 auto;
   padding: 1.5rem 1.5rem 0;
@@ -1112,9 +1119,12 @@ body {
 }
 
 .dash-header,
-.dash-main,
-.bottom-nav {
+.dash-main {
   position: relative;
+  z-index: 1;
+}
+
+.bottom-nav {
   z-index: 1;
 }
 
@@ -1568,8 +1578,8 @@ body {
 
 /* ---------- Manage Certificate: simple default list ---------- */
 .cert-simple-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 10px;
 }
 
@@ -1619,4 +1629,92 @@ body {
   align-items: center;
   justify-content: center;
   margin: 0 auto;
+}
+
+/* ============================================================
+   Responsive shell — tablet & desktop
+   The app shell (dash-header / dash-main / bottom-nav) is shared
+   by every page, so widening it here covers the whole app.
+   ============================================================ */
+
+/* Tablet and up: give the phone-style shell more room to breathe */
+@media (min-width: 640px) {
+  .dash-header-inner,
+  .dash-main,
+  .bottom-nav-inner {
+    max-width: 640px;
+  }
+
+  /* Forms, info cards and the verify panel stay a comfortable
+     reading width instead of stretching edge-to-edge */
+  main.dash-main form:not(.search-bar),
+  .verify-input,
+  .btn-verify,
+  .verify-divider,
+  .qr-scan-card,
+  .cert-info-card,
+  .result-success-card,
+  .hash-preview-card,
+  .detail-summary-card {
+    max-width: 480px;
+    margin-left: 0;
+    margin-right: auto;
+  }
+}
+
+/* Desktop: widen further and turn the bottom nav into a top nav */
+@media (min-width: 1024px) {
+  .dash-body {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+  }
+
+  .dash-header-inner,
+  .dash-main,
+  .bottom-nav-inner {
+    max-width: 1100px;
+  }
+
+  .dash-main {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .dash-header-inner {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .bottom-nav {
+    position: static;
+    order: -1;
+    background: #fff;
+    border-bottom: 1px solid var(--border-gray);
+    padding: 0;
+  }
+
+  .bottom-nav-inner {
+    justify-content: flex-start;
+    gap: 2rem;
+    padding: 0.85rem 2rem;
+  }
+
+  .bottom-nav-item {
+    flex-direction: row;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  .bottom-nav-item:hover,
+  .bottom-nav-item.active {
+    color: var(--brand-blue);
+  }
+
+  /* Decorative background icons are a mobile-wallpaper touch; on a wide,
+     mostly-empty desktop canvas they just float disconnected from content */
+  .bg-icon {
+    display: none;
+  }
 }
