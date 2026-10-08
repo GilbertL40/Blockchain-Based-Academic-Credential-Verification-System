@@ -25,7 +25,7 @@
     <p class="dash-header-title">My Certificates</p>
   </div>
   <p class="dash-welcome">Welcome back,</p>
-  <h1 class="dash-role">Student</h1>
+  <h1 class="dash-role">{{ session['name'] }}</h1>
   </div>
 </header>
 
@@ -34,63 +34,55 @@
   <section class="dash-section">
     <div class="cred-list">
 
+      {% for cert in certificates %}
       <div class="cred-card">
-        <h3 class="cred-title">Bachelor In Information Technology</h3>
+        <h3 class="cred-title">{{ cert.course }}</h3>
         <div class="cred-actions">
-          <button type="button" class="cred-action-btn">
+          <a href="{{ url_for('student_certificate_views', cert_id=cert.id) }}" class="cred-action-btn">
             <i class="ti ti-eye"></i>
-            <span class="cred-action-count">6</span>
+            <span class="cred-action-count">{{ cert.view_count }}</span>
             <span>Views</span>
-          </button>
-          <button type="button" class="cred-action-btn">
+          </a>
+          {% if cert.file_path %}
+          <a href="{{ url_for('student_certificate_download', cert_id=cert.id) }}" class="cred-action-btn">
             <i class="ti ti-cloud-download"></i>
             <span>Download</span>
-          </button>
-          <button type="button" class="cred-action-btn">
-            <i class="ti ti-qrcode"></i>
-            <span>QR Code</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="cred-card">
-        <h3 class="cred-title">Diploma In Information Technology</h3>
-        <div class="cred-actions">
-          <button type="button" class="cred-action-btn">
-            <i class="ti ti-eye"></i>
-            <span class="cred-action-count">3</span>
-            <span>Views</span>
-          </button>
-          <button type="button" class="cred-action-btn">
+          </a>
+          {% else %}
+          <span class="cred-action-btn" style="opacity:0.4; cursor:default;">
             <i class="ti ti-cloud-download"></i>
-            <span>Download</span>
-          </button>
-          <button type="button" class="cred-action-btn">
+            <span>No File</span>
+          </span>
+          {% endif %}
+          <a href="{{ url_for('student_certificate_qr', cert_id=cert.id) }}" class="cred-action-btn">
             <i class="ti ti-qrcode"></i>
             <span>QR Code</span>
-          </button>
+          </a>
         </div>
       </div>
+      {% else %}
+      <p style="font-size:13px; color:var(--text-muted);">No certificates yet.</p>
+      {% endfor %}
 
+    </div>
+  </section>
+
+  <section class="dash-section">
+    <h2 class="dash-section-title" style="padding:0 4px;">Notifications</h2>
+    <div class="cred-list">
+      {% for note in notifications %}
+      {% if note.link_url %}
+      <a href="{{ note.link_url }}" class="cred-card" style="display:block; text-decoration:none;">
+        <p style="font-size:13px; color:var(--text-dark); margin:0;">{{ note.message }}</p>
+      </a>
+      {% else %}
       <div class="cred-card">
-        <h3 class="cred-title">Grade 12 Certificate</h3>
-        <div class="cred-actions">
-          <button type="button" class="cred-action-btn">
-            <i class="ti ti-eye"></i>
-            <span class="cred-action-count">9</span>
-            <span>Views</span>
-          </button>
-          <button type="button" class="cred-action-btn">
-            <i class="ti ti-cloud-download"></i>
-            <span>Download</span>
-          </button>
-          <button type="button" class="cred-action-btn">
-            <i class="ti ti-qrcode"></i>
-            <span>QR Code</span>
-          </button>
-        </div>
+        <p style="font-size:13px; color:var(--text-dark); margin:0;">{{ note.message }}</p>
       </div>
-
+      {% endif %}
+      {% else %}
+      <p style="font-size:13px; color:var(--text-muted); padding:0 4px;">No notifications yet.</p>
+      {% endfor %}
     </div>
   </section>
 
@@ -102,6 +94,7 @@
   <a href="{{ url_for('student_certificates') }}" class="bottom-nav-item"><i class="ti ti-file-certificate"></i><span>Certificates</span></a>
   <a href="{{ url_for('student_share') }}" class="bottom-nav-item"><i class="ti ti-share-2"></i><span>Share</span></a>
   <a href="{{ url_for('student_profile') }}" class="bottom-nav-item"><i class="ti ti-user-circle"></i><span>Profile</span></a>
+  <a href="{{ url_for('logout') }}" class="bottom-nav-item"><i class="ti ti-logout"></i><span>Logout</span></a>
   </div>
 </nav>
 

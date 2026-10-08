@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificate Verification - Academic Credential Verification System</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="dash-body">
+
+<header class="dash-header">
+  <div class="dash-header-inner">
+    <div class="dash-header-top">
+      <div class="dash-logo-block">
+        <div class="dash-logo-badge">
+          <img src="{{ url_for('static', filename='logo-icon.png') }}" alt="logo" width="15" height="15">
+        </div>
+        <p class="dash-logo-text">Academic Credential<br>Verification System</p>
+      </div>
+    </div>
+    <p class="dash-welcome">Public Verification</p>
+    <h1 class="dash-role">{{ cert.id if cert else 'Certificate Lookup' }}</h1>
+  </div>
+</header>
+
+<main class="dash-main">
+
+  <section class="dash-section">
+    {% if not cert %}
+    <div class="result-success-card" style="background:#c62828;">
+      <span>Certificate Not Found</span>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M9 9l6 6"/><path d="M15 9l-6 6"/></svg>
+    </div>
+    <p style="font-size:13px; color:var(--text-muted); margin-top:10px;">No certificate matches this ID. It may not exist, or the link may be incorrect.</p>
+
+    {% else %}
+      {% if cert.status == 'Active' %}
+      <div class="result-success-card">
+        <span>Certificate is Valid</span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M9 12l2 2l4 -4"/></svg>
+      </div>
+      {% else %}
+      <div class="result-success-card" style="background:#c62828;">
+        <span>Certificate Has Been Revoked</span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M9 9l6 6"/><path d="M15 9l-6 6"/></svg>
+      </div>
+      {% endif %}
+
+      <div class="cert-info-card" style="margin-top:14px;">
+        <h3 class="cert-info-title">Certificate Information</h3>
+        <dl class="cert-info-list">
+          <div class="cert-info-row"><dt>Certificate Number:</dt><dd>{{ cert.id }}</dd></div>
+          <div class="cert-info-row"><dt>Student Name:</dt><dd>{{ cert.student }}</dd></div>
+          <div class="cert-info-row"><dt>Qualification:</dt><dd>{{ cert.course }}</dd></div>
+          {% if cert.issuing_institution %}
+          <div class="cert-info-row"><dt>Issuing Institution:</dt><dd>{{ cert.issuing_institution }}</dd></div>
+          {% endif %}
+          {% if cert.issued_date %}
+          <div class="cert-info-row"><dt>Issue Date:</dt><dd>{{ cert.issued_date }}</dd></div>
+          {% endif %}
+        </dl>
+      </div>
+
+      {% if cert.source == 'admin' %}
+      <div class="cert-info-card" style="margin-top:14px;">
+        <h3 class="cert-info-title">Blockchain Record</h3>
+        {% if verified %}
+        <p style="color:#2e7d32; font-size:13px; font-weight:600; margin:0;">&#10003; Blockchain Verified &mdash; this credential matches its anchored record.</p>
+        {% else %}
+        <p style="color:#c62828; font-size:13px; font-weight:600; margin:0;">&#9888; {{ verify_reason }}</p>
+        {% endif %}
+      </div>
+      {% else %}
+      <div class="cert-info-card" style="margin-top:14px;">
+        <p style="font-size:13px; color:var(--text-muted); margin:0;">This is a self-reported credential added by the student and is not institutionally anchored on the blockchain.</p>
+      </div>
+      {% endif %}
+    {% endif %}
+  </section>
+
+</main>
+
+</body>
+</html>

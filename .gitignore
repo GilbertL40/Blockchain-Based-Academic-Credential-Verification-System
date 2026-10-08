@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Seeded demo login credentials (plaintext, never commit)
+credentials.txt
+
+# User-uploaded profile photos (runtime-generated)
+static/uploads/

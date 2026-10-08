@@ -19,7 +19,7 @@
       </div>
     </div>
     <p class="dash-welcome">Welcome back,</p>
-    <h1 class="dash-role">Administrator</h1>
+    <h1 class="dash-role">{{ session['name'] }}</h1>
   </div>
 </header>
 
@@ -30,22 +30,22 @@
     <div class="metric-grid">
       <a class="metric-card" href="{{ url_for('admin_overview', category='students') }}">
         <svg class="metric-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/></svg>
-        <div class="metric-value">546</div>
+        <div class="metric-value">{{ student_count }}</div>
         <div class="metric-label">Students</div>
       </a>
       <a class="metric-card" href="{{ url_for('admin_overview', category='certificates-issued') }}">
         <svg class="metric-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4"/><path d="M9.7 18.3l-.7 1.7l1.5 -.6l1.5 .6l-.7 -1.7"/><circle cx="11" cy="16" r="2.5"/></svg>
-        <div class="metric-value">736</div>
+        <div class="metric-value">{{ issued_count }}</div>
         <div class="metric-label">Certificates Issued</div>
       </a>
       <a class="metric-card" href="{{ url_for('admin_overview', category='revoked-certificates') }}">
         <svg class="metric-icon icon-danger" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M9 9l6 6"/><path d="M15 9l-6 6"/></svg>
-        <div class="metric-value">211</div>
+        <div class="metric-value">{{ revoked_count }}</div>
         <div class="metric-label">Revoked Certificates</div>
       </a>
       <a class="metric-card" href="{{ url_for('admin_overview', category='verified-certificates') }}">
         <svg class="metric-icon icon-success" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M9 12l2 2l4 -4"/></svg>
-        <div class="metric-value">571</div>
+        <div class="metric-value">{{ verified_count }}</div>
         <div class="metric-label">Verified Certificates</div>
       </a>
     </div>
@@ -75,6 +75,13 @@
         </span>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l5 5l-5 5"/><path d="M13 7l5 5l-5 5"/></svg>
       </a>
+      <a href="{{ url_for('admin_blockchain') }}" class="action-btn action-blue">
+        <span class="action-left">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+          View Blockchain Ledger
+        </span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l5 5l-5 5"/><path d="M13 7l5 5l-5 5"/></svg>
+      </a>
     </div>
   </section>
 
@@ -84,30 +91,48 @@
       <a href="{{ url_for('admin_activity_all') }}" class="view-all-link">View All</a>
     </div>
     <div class="activity-list">
-      <a href="{{ url_for('admin_activity_detail', student_id='STU-1042') }}" class="activity-row">
+      {% for cert in recent_certs %}
+      <a href="{{ url_for('admin_activity_detail', student_id=cert.student_id) }}" class="activity-row">
         <span class="activity-left">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/></svg>
-          Mac Daniel
+          {{ cert.student }}
         </span>
+        {% if cert.status == 'Active' %}
         <span class="activity-status status-issued">Issued</span>
         <svg class="icon-success" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M9 12l2 2l4 -4"/></svg>
-      </a>
-      <a href="{{ url_for('admin_activity_detail', student_id='STU-1043') }}" class="activity-row">
-        <span class="activity-left">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/></svg>
-          Jan Allan
-        </span>
+        {% else %}
         <span class="activity-status status-revoked">Revoked</span>
         <svg class="icon-danger" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M9 9l6 6"/><path d="M15 9l-6 6"/></svg>
+        {% endif %}
       </a>
-      <a href="{{ url_for('admin_activity_detail', student_id='STU-1044') }}" class="activity-row">
+      {% else %}
+      <p style="font-size:13px; color:var(--text-muted);">No recent activity yet.</p>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="dash-section">
+    <h2 class="dash-section-title">Notifications</h2>
+    <div class="activity-list">
+      {% for note in notifications %}
+      {% if note.link_url %}
+      <a href="{{ note.link_url }}" class="activity-row">
         <span class="activity-left">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/></svg>
-          James Aron
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/></svg>
+          {{ note.message }}
         </span>
-        <span class="activity-status status-issued">Issued</span>
-        <svg class="icon-success" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M9 12l2 2l4 -4"/></svg>
       </a>
+      {% else %}
+      <div class="activity-row" style="cursor:default;">
+        <span class="activity-left">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/></svg>
+          {{ note.message }}
+        </span>
+      </div>
+      {% endif %}
+      {% else %}
+      <p style="font-size:13px; color:var(--text-muted);">No notifications yet.</p>
+      {% endfor %}
     </div>
   </section>
 
@@ -130,6 +155,10 @@
   <a href="{{ url_for('admin_profile') }}" class="bottom-nav-item">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M6.168 18.849A4 4 0 0 1 10 16h4a4 4 0 0 1 3.834 2.855"/></svg>
     <span>Profile</span>
+  </a>
+  <a href="{{ url_for('logout') }}" class="bottom-nav-item">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"/><path d="M7 12h14l-3 -3"/><path d="M18 15l3 -3"/></svg>
+    <span>Logout</span>
   </a>
   </div>
 </nav>

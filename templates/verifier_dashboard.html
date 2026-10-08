@@ -22,7 +22,7 @@
       <p class="dash-logo-text">Academic Credential<br>Verification System</p>
     </div>
     <p class="dash-welcome">Welcome back,</p>
-    <h1 class="dash-role">Employer</h1>
+    <h1 class="dash-role">{{ session['name'] }}</h1>
   </div>
   </div>
 </header>
@@ -30,10 +30,12 @@
 <main class="dash-main">
 
   <section class="dash-section">
-    <label for="cert-id" class="verify-label">Enter certificate ID</label>
-    <input type="text" id="cert-id" class="verify-input" placeholder="">
+    <form method="POST" action="{{ url_for('verifier_dashboard') }}">
+      <label for="cert-id" class="verify-label">Enter certificate ID</label>
+      <input type="text" id="cert-id" name="cert_id" class="verify-input" placeholder="e.g. CERT-8821" value="{{ searched_id or '' }}" required>
 
-    <button type="button" class="btn-verify">Verify</button>
+      <button type="submit" class="btn-verify">Verify</button>
+    </form>
 
     <div class="verify-divider">
       <span></span>
@@ -41,41 +43,85 @@
       <span></span>
     </div>
 
-    <button type="button" class="qr-scan-card">
+    <button type="button" id="qr-scan-btn" class="qr-scan-card">
       <i class="ti ti-file-shredder qr-icon"></i>
       <span class="qr-title">Scan QR Code</span>
       <span class="qr-subtext">Use camera to scan Certificate QR Code.</span>
     </button>
+
+    <div id="qr-scan-area" style="display:none; text-align:center; margin-top:14px;">
+      <video id="qr-video" style="width:100%; max-width:320px; border-radius:12px; background:#000;" playsinline muted></video>
+      <p id="qr-status" style="font-size:13px; color:var(--text-muted); margin-top:8px;">Point the camera at the certificate's QR code.</p>
+      <button type="button" id="qr-cancel-btn" class="btn-secondary" style="width:auto; padding:0.5rem 1.2rem; margin-top:4px;">Cancel</button>
+    </div>
+    <canvas id="qr-canvas" style="display:none;"></canvas>
   </section>
 
+  {% if result %}
   <section class="dash-section">
     <h2 class="dash-section-title">Verification Result</h2>
 
+    {% if result == 'Verified' %}
     <div class="result-success-card">
       <span>Verification Successful !</span>
       <i class="ti ti-square-rounded-check"></i>
     </div>
+    {% else %}
+    <div class="result-success-card" style="background:#c62828;">
+      <span>Verification Failed</span>
+      <i class="ti ti-square-rounded-x"></i>
+    </div>
+    <p style="font-size:13px; color:var(--text-muted); margin:10px 0 0;">{{ reason }}</p>
+    {% endif %}
 
-    <div class="cert-info-card">
+    {% if cert %}
+    <div class="cert-info-card" style="margin-top:14px;">
       <h3 class="cert-info-title">Certificate Information</h3>
       <dl class="cert-info-list">
         <div class="cert-info-row">
           <dt>Student Name:</dt>
-          <dd></dd>
+          <dd>{{ cert.student }}</dd>
         </div>
         <div class="cert-info-row">
           <dt>Qualification:</dt>
-          <dd></dd>
+          <dd>{{ cert.course }}</dd>
         </div>
         <div class="cert-info-row">
           <dt>Certificate Number:</dt>
-          <dd></dd>
+          <dd>{{ cert.id }}</dd>
         </div>
         <div class="cert-info-row">
           <dt>Institution:</dt>
-          <dd></dd>
+          <dd>{{ cert.issuing_institution or 'Academic Credential Verification System' }}</dd>
         </div>
       </dl>
+    </div>
+    {% endif %}
+  </section>
+  {% endif %}
+
+  <section class="dash-section">
+    <h2 class="dash-section-title">Notifications</h2>
+    <div class="activity-list">
+      {% for note in notifications %}
+      {% if note.link_url %}
+      <a href="{{ note.link_url }}" class="activity-row">
+        <span class="activity-left">
+          <i class="ti ti-bell"></i>
+          {{ note.message }}
+        </span>
+      </a>
+      {% else %}
+      <div class="activity-row" style="cursor:default;">
+        <span class="activity-left">
+          <i class="ti ti-bell"></i>
+          {{ note.message }}
+        </span>
+      </div>
+      {% endif %}
+      {% else %}
+      <p style="font-size:13px; color:var(--text-muted);">No notifications yet.</p>
+      {% endfor %}
     </div>
   </section>
 
@@ -87,8 +133,81 @@
   <a href="{{ url_for('verifier_history') }}" class="bottom-nav-item"><i class="ti ti-clock-hour-4"></i><span>History</span></a>
   <a href="{{ url_for('verifier_share') }}" class="bottom-nav-item"><i class="ti ti-share-2"></i><span>Share</span></a>
   <a href="{{ url_for('verifier_profile') }}" class="bottom-nav-item"><i class="ti ti-user-circle"></i><span>Profile</span></a>
+  <a href="{{ url_for('logout') }}" class="bottom-nav-item"><i class="ti ti-logout"></i><span>Logout</span></a>
   </div>
 </nav>
+
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<script>
+(function () {
+  var scanBtn = document.getElementById('qr-scan-btn');
+  var cancelBtn = document.getElementById('qr-cancel-btn');
+  var scanArea = document.getElementById('qr-scan-area');
+  var video = document.getElementById('qr-video');
+  var canvas = document.getElementById('qr-canvas');
+  var statusEl = document.getElementById('qr-status');
+  var certInput = document.getElementById('cert-id');
+  var verifyForm = certInput.closest('form');
+  var stream = null;
+  var scanning = false;
+
+  function stopCamera() {
+    scanning = false;
+    if (stream) {
+      stream.getTracks().forEach(function (track) { track.stop(); });
+      stream = null;
+    }
+    scanArea.style.display = 'none';
+  }
+
+  function scanFrame() {
+    if (!scanning) return;
+    if (video.readyState === video.HAVE_ENOUGH_DATA) {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      var ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      var code = window.jsQR(imageData.data, imageData.width, imageData.height);
+      if (code && code.data) {
+        var match = code.data.match(/\/verify\/([^/?#]+)/);
+        if (match) {
+          statusEl.textContent = 'Certificate found, verifying...';
+          certInput.value = match[1];
+          stopCamera();
+          verifyForm.submit();
+          return;
+        }
+      }
+    }
+    requestAnimationFrame(scanFrame);
+  }
+
+  scanBtn.addEventListener('click', function () {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      scanArea.style.display = 'block';
+      statusEl.textContent = 'Camera access is not supported in this browser.';
+      return;
+    }
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+      .then(function (s) {
+        stream = s;
+        video.srcObject = stream;
+        video.play();
+        scanArea.style.display = 'block';
+        statusEl.textContent = "Point the camera at the certificate's QR code.";
+        scanning = true;
+        requestAnimationFrame(scanFrame);
+      })
+      .catch(function (err) {
+        scanArea.style.display = 'block';
+        statusEl.textContent = 'Could not access the camera: ' + err.message;
+      });
+  });
+
+  cancelBtn.addEventListener('click', stopCamera);
+})();
+</script>
 
 </body>
 </html>

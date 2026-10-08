@@ -36,20 +36,33 @@
           {% endif %}
         </div>
         <div class="cred-actions">
-          <button type="button" class="cred-action-btn share-btn" data-record="{{ record.id }}" data-target="School">
-            <i class="ti ti-building"></i>
-            <span>School</span>
-          </button>
-          <button type="button" class="cred-action-btn share-btn" data-record="{{ record.id }}" data-target="Student">
-            <i class="ti ti-user"></i>
-            <span>Student</span>
-          </button>
-          <button type="button" class="cred-action-btn share-btn" data-record="{{ record.id }}" data-target="Other Verifiers">
-            <i class="ti ti-users"></i>
-            <span>Other Verifiers</span>
-          </button>
+          <form method="POST" action="{{ url_for('send_verification_share', record_id=record.id) }}">
+            <input type="hidden" name="target" value="school">
+            <button type="submit" class="cred-action-btn" style="width:100%;">
+              <i class="ti ti-building"></i>
+              <span>School</span>
+            </button>
+          </form>
+          <form method="POST" action="{{ url_for('send_verification_share', record_id=record.id) }}">
+            <input type="hidden" name="target" value="student">
+            <button type="submit" class="cred-action-btn" style="width:100%;">
+              <i class="ti ti-user"></i>
+              <span>Student</span>
+            </button>
+          </form>
+          <form method="POST" action="{{ url_for('send_verification_share', record_id=record.id) }}">
+            <input type="hidden" name="target" value="other_verifiers">
+            <button type="submit" class="cred-action-btn" style="width:100%;">
+              <i class="ti ti-users"></i>
+              <span>Other Verifiers</span>
+            </button>
+          </form>
         </div>
-        <p class="share-status" id="share-status-{{ record.id }}" style="font-size:12px; font-weight:600; color:var(--brand-blue); margin:10px 0 0; min-height:14px;"></p>
+        <p class="share-status" style="font-size:12px; font-weight:600; color:var(--brand-blue); margin:10px 0 0; min-height:14px;">
+          {% if sent_record == record.id %}
+          Shared with {{ {'school': 'School', 'student': 'Student', 'other_verifiers': 'Other Verifiers'}[sent_target] }} &#10003;
+          {% endif %}
+        </p>
       </div>
       {% endfor %}
     </div>
@@ -63,21 +76,9 @@
   <a href="{{ url_for('verifier_history') }}" class="bottom-nav-item"><i class="ti ti-clock-hour-4"></i><span>History</span></a>
   <a href="{{ url_for('verifier_share') }}" class="bottom-nav-item active"><i class="ti ti-share-2"></i><span>Share</span></a>
   <a href="{{ url_for('verifier_profile') }}" class="bottom-nav-item"><i class="ti ti-user-circle"></i><span>Profile</span></a>
+  <a href="{{ url_for('logout') }}" class="bottom-nav-item"><i class="ti ti-logout"></i><span>Logout</span></a>
   </div>
 </nav>
-
-<script>
-document.querySelectorAll('.share-btn').forEach(function (btn) {
-  btn.addEventListener('click', function () {
-    var recordId = btn.getAttribute('data-record');
-    var target = btn.getAttribute('data-target');
-    var status = document.getElementById('share-status-' + recordId);
-    if (status) {
-      status.textContent = 'Shared with ' + target + ' ✓';
-    }
-  });
-});
-</script>
 
 </body>
 </html>

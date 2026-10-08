@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Not Found - Academic Credential Verification System</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="dash-body">
+
+<header class="dash-header">
+  <div class="dash-header-inner">
+    <div class="dash-header-top">
+      <div class="dash-logo-block">
+        <div class="dash-logo-badge">
+          <img src="{{ url_for('static', filename='logo-icon.png') }}" alt="logo" width="15" height="15">
+        </div>
+        <p class="dash-logo-text">Academic Credential<br>Verification System</p>
+      </div>
+    </div>
+    <p class="dash-welcome">Error</p>
+    <h1 class="dash-role">Not Found</h1>
+  </div>
+</header>
+
+<main class="dash-main">
+  <section class="dash-section" style="text-align:center;">
+    <div class="result-success-card" style="background:#c62828;">
+      <span>{{ description or 'The page you requested could not be found.' }}</span>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M9 9l6 6"/><path d="M15 9l-6 6"/></svg>
+    </div>
+    <a href="{{ url_for(home_endpoint) }}" class="btn-primary" style="display:inline-block; margin-top:18px; text-decoration:none; padding:0.6rem 1.4rem;">Back to Dashboard</a>
+  </section>
+</main>
+
+</body>
+</html>

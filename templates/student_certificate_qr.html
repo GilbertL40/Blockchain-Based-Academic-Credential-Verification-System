@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Add Certificate - Academic Credential Verification System</title>
+<title>QR Code - Academic Credential Verification System</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.46.0/tabler-icons.min.css">
 </head>
@@ -17,41 +17,17 @@
       </a>
     </div>
     <p class="dash-welcome">My Certificates</p>
-    <h1 class="dash-role">Add Certificate</h1>
+    <h1 class="dash-role">QR Code</h1>
   </div>
 </header>
 
 <main class="dash-main">
-  <section class="dash-section">
-
-    {% if error %}
-    <p style="color:#c62828; font-size:13px; margin-bottom:14px;">{{ error }}</p>
-    {% endif %}
-
-    <form method="POST" action="{{ url_for('add_student_certificate') }}" enctype="multipart/form-data">
-
-      <div class="form-group">
-        <label class="form-label" for="title">Certificate Title</label>
-        <input class="form-input" type="text" id="title" name="title" placeholder="e.g. Bachelor In Information Technology" required>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" for="institution">Issuing Institution</label>
-        <input class="form-input" type="text" id="institution" name="institution" placeholder="e.g. University of Papua New Guinea">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" for="year">Year Awarded</label>
-        <input class="form-input" type="number" id="year" name="year" placeholder="e.g. 2026" min="2000" max="2100">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" for="certificate_file">Upload Certificate File (PDF)</label>
-        <input class="form-input" type="file" id="certificate_file" name="certificate_file" accept="application/pdf">
-      </div>
-
-      <button type="submit" class="btn-primary">Add Certificate</button>
-    </form>
+  <section class="dash-section" style="text-align:center;">
+    <h3 class="cred-title" style="margin-bottom:14px;">{{ cert.course }}</h3>
+    <div style="background:#fff; padding:16px; border-radius:12px; display:inline-block;">
+      <img src="{{ url_for('student_certificate_qr_svg', cert_id=cert.id) }}" alt="QR code for {{ cert.id }}" width="220" height="220">
+    </div>
+    <p style="font-size:12px; color:var(--text-muted); margin-top:14px; word-break:break-all;">{{ verify_url }}</p>
   </section>
 </main>
 

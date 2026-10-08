@@ -32,40 +32,34 @@
 
     <div class="cred-list">
 
+      {% for cert in certificates %}
       <div class="cred-card">
-        <h3 class="cred-title">Bachelor In Information Technology</h3>
-        <div class="cred-actions" style="grid-template-columns:1fr;">
-          <button type="button" class="cred-action-btn" style="flex-direction:row; justify-content:center; gap:8px;">
-            <i class="ti ti-link"></i>
-            <span>Share Link</span>
-          </button>
+        <h3 class="cred-title">{{ cert.course }}</h3>
+        <div style="display:flex; gap:8px; margin-top:10px;">
+          <input type="text" readonly value="{{ cert.verify_url }}" id="link-{{ loop.index }}" class="form-input" style="font-size:12px;" onclick="this.select();">
+          <button type="button" class="btn-secondary" style="width:auto; padding:0.5rem 1rem; white-space:nowrap;" onclick="copyShareLink('link-{{ loop.index }}', this)">Copy</button>
         </div>
       </div>
-
-      <div class="cred-card">
-        <h3 class="cred-title">Diploma In Information Technology</h3>
-        <div class="cred-actions" style="grid-template-columns:1fr;">
-          <button type="button" class="cred-action-btn" style="flex-direction:row; justify-content:center; gap:8px;">
-            <i class="ti ti-link"></i>
-            <span>Share Link</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="cred-card">
-        <h3 class="cred-title">Grade 12 Certificate</h3>
-        <div class="cred-actions" style="grid-template-columns:1fr;">
-          <button type="button" class="cred-action-btn" style="flex-direction:row; justify-content:center; gap:8px;">
-            <i class="ti ti-link"></i>
-            <span>Share Link</span>
-          </button>
-        </div>
-      </div>
+      {% else %}
+      <p style="font-size:13px; color:var(--text-muted);">No certificates to share yet.</p>
+      {% endfor %}
 
     </div>
   </section>
 
 </main>
+
+<script>
+function copyShareLink(inputId, btn) {
+  var input = document.getElementById(inputId);
+  input.select();
+  navigator.clipboard.writeText(input.value).then(function() {
+    var original = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = original; }, 1500);
+  });
+}
+</script>
 
 <nav class="bottom-nav">
   <div class="bottom-nav-inner">
@@ -73,6 +67,7 @@
   <a href="{{ url_for('student_certificates') }}" class="bottom-nav-item"><i class="ti ti-file-certificate"></i><span>Certificates</span></a>
   <a href="{{ url_for('student_share') }}" class="bottom-nav-item active"><i class="ti ti-share-2"></i><span>Share</span></a>
   <a href="{{ url_for('student_profile') }}" class="bottom-nav-item"><i class="ti ti-user-circle"></i><span>Profile</span></a>
+  <a href="{{ url_for('logout') }}" class="bottom-nav-item"><i class="ti ti-logout"></i><span>Logout</span></a>
   </div>
 </nav>
 

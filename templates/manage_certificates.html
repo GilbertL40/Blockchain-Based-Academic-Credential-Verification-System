@@ -38,12 +38,12 @@
 
   <section class="dash-section">
     <div class="filter-tabs">
-      <a href="{{ url_for('manage_certificates') }}" class="filter-tab {{ 'active' if not query }}">All</a>
-      <a href="{{ url_for('manage_certificates') }}?status=active" class="filter-tab">Active</a>
-      <a href="{{ url_for('manage_certificates') }}?status=revoked" class="filter-tab">Revoked</a>
+      <a href="{{ url_for('manage_certificates', q=query) }}" class="filter-tab {{ 'active' if not status_filter }}">All</a>
+      <a href="{{ url_for('manage_certificates', q=query, status='active') }}" class="filter-tab {{ 'active' if status_filter == 'active' }}">Active</a>
+      <a href="{{ url_for('manage_certificates', q=query, status='revoked') }}" class="filter-tab {{ 'active' if status_filter == 'revoked' }}">Revoked</a>
     </div>
 
-    {% if query %}
+    {% if query or status_filter %}
     <div class="table-wrap">
       <table class="credentials">
         <thead>
@@ -59,7 +59,7 @@
         <tbody>
           {% for cert in certificates %}
           <tr>
-            <td>{{ cert.id }}</td>
+            <td><a href="{{ url_for('admin_certificate_detail', cert_id=cert.id) }}" style="color:var(--brand-blue);">{{ cert.id }}</a></td>
             <td>{{ cert.student_id }}</td>
             <td>{{ cert.student }}</td>
             <td>{{ cert.course }}</td>
@@ -72,7 +72,7 @@
             </td>
             <td>
               <div class="row-actions">
-                <button class="action-link" type="button">View</button>
+                <a class="action-link" href="{{ url_for('admin_certificate_detail', cert_id=cert.id) }}">View</a>
                 {% if cert.status == 'Active' %}
                 <button class="action-link" type="button" style="color:#c62828;">Revoke</button>
                 {% else %}
@@ -92,7 +92,7 @@
     {% else %}
     <div class="cert-simple-list">
       {% for cert in certificates %}
-      <div class="cert-simple-row">
+      <a href="{{ url_for('admin_certificate_detail', cert_id=cert.id) }}" class="cert-simple-row">
         <div class="cert-simple-info">
           <span class="cert-simple-id">{{ cert.id }}</span>
           <span class="cert-simple-student">{{ cert.student }}</span>
@@ -102,7 +102,7 @@
         {% else %}
         <span class="status-pill pending" style="background:#fdeaea; color:#c62828;">Revoked</span>
         {% endif %}
-      </div>
+      </a>
       {% endfor %}
     </div>
     {% endif %}
@@ -127,6 +127,10 @@
   <a href="{{ url_for('admin_profile') }}" class="bottom-nav-item">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M6.168 18.849A4 4 0 0 1 10 16h4a4 4 0 0 1 3.834 2.855"/></svg>
     <span>Profile</span>
+  </a>
+  <a href="{{ url_for('logout') }}" class="bottom-nav-item">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"/><path d="M7 12h14l-3 -3"/><path d="M18 15l3 -3"/></svg>
+    <span>Logout</span>
   </a>
   </div>
 </nav>
