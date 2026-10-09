@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Offline - Academic Credential Verification System</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="top-bar"></div>
+
+<div class="login-wrap">
+  <div class="login-logo">
+<div class="shield">
+  <img src="{{ url_for('static', filename='logo-icon.png') }}" alt="Academic Credential Verification System logo" width="48" height="48">
+</div>
+    <h1>You're Offline</h1>
+    <p class="tagline">CHECK YOUR CONNECTION AND TRY AGAIN</p>
+  </div>
+  <button type="button" class="btn-login" onclick="location.reload()">Retry</button>
+</div>
+
+</body>
+</html>

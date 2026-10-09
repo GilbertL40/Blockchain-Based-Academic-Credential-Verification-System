@@ -10,12 +10,16 @@ from functools import wraps
 import qrcode
 import qrcode.image.svg
 from flask import Flask, render_template, request, redirect, url_for, session, Response, abort, send_from_directory
+from werkzeug.middleware.proxy_fix import ProxyFix
 from werkzeug.utils import secure_filename
 
 from models import db, User, Student, PreviousSchool, Certificate, VerificationRecord, Notification, PasswordResetRequest
 from blockchain import Block, add_certificate_block, verify_chain, verify_certificate
 
 app = Flask(__name__)
+# Behind a hosting proxy (PythonAnywhere, tunnels), trust its https/host headers so
+# _external URLs such as the certificate QR codes point at the public https address.
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 app.secret_key = os.environ.get('SECRET_KEY', 'dev-secret-key-change-me')
 os.makedirs(app.instance_path, exist_ok=True)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(app.instance_path, 'academic_credentials.db')
@@ -153,6 +157,26 @@ def inject_current_user():
         return {'current_user': None}
     model = Student if role == 'student' else User
     return {'current_user': model.query.get(user_id)}
+
+
+@app.route('/manifest.webmanifest')
+def manifest():
+    return send_from_directory(
+        os.path.join(app.static_folder, 'pwa'), 'manifest.webmanifest', mimetype='application/manifest+json',
+    )
+
+
+@app.route('/sw.js')
+def service_worker():
+    # Served from the site root (not /static/) so the service worker can control every page.
+    response = send_from_directory(os.path.join(app.static_folder, 'pwa'), 'sw.js', mimetype='application/javascript')
+    response.headers['Cache-Control'] = 'no-cache'
+    return response
+
+
+@app.route('/offline')
+def offline():
+    return render_template('offline.html')
 
 
 @app.route('/')
