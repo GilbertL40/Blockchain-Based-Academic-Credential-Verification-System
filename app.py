@@ -12,7 +12,7 @@ import qrcode.image.svg
 from flask import Flask, render_template, request, redirect, url_for, session, Response, abort, send_from_directory
 from werkzeug.utils import secure_filename
 
-from models import db, User, Student, PreviousSchool, Certificate, VerificationRecord, Notification
+from models import db, User, Student, PreviousSchool, Certificate, VerificationRecord, Notification, PasswordResetRequest
 from blockchain import Block, add_certificate_block, verify_chain, verify_certificate
 
 app = Flask(__name__)
@@ -22,6 +22,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(app.instance
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['MAX_CONTENT_LENGTH'] = 8 * 1024 * 1024  # 8 MB, covers profile photos and certificate PDFs
 db.init_app(app)
+with app.app_context():
+    db.create_all()  # only creates missing tables (e.g. password_reset_requests); existing data is untouched
 
 UPLOAD_FOLDER = os.path.join(app.root_path, 'static', 'uploads')
 CERTIFICATE_UPLOAD_FOLDER = os.path.join(UPLOAD_FOLDER, 'certificates')
@@ -187,6 +189,44 @@ def logout():
     return redirect(url_for('login'))
 
 
+@app.route('/forgot-password', methods=['GET', 'POST'])
+def forgot_password():
+    """Lets a user ask the administrators for a password reset. There is no email service, so an
+    admin generates a temporary password (like Register Student does) and hands it over."""
+    if request.method == 'POST':
+        name = request.form.get('name', '').strip()
+        email = request.form.get('email', '').strip()
+
+        if not name or not email:
+            error = "Please enter both your name and email address."
+            return render_template('forgot_password.html', error=error, name=name, email=email)
+
+        account = User.query.filter(
+            db.func.lower(User.name) == name.lower(), db.func.lower(User.email) == email.lower(),
+        ).first()
+        role = account.role if account else None
+        if not account:
+            account = Student.query.filter(
+                db.func.lower(Student.name) == name.lower(), db.func.lower(Student.email) == email.lower(),
+            ).first()
+            role = 'student' if account else None
+
+        if account:
+            already_pending = PasswordResetRequest.query.filter_by(
+                account_role=role, account_id=account.id, status='Pending',
+            ).first()
+            if not already_pending:
+                db.session.add(PasswordResetRequest(
+                    account_role=role, account_id=account.id, name=account.name, email=account.email,
+                    status='Pending', requested_at=datetime.now().isoformat(timespec='minutes'),
+                ))
+                db.session.commit()
+
+        # Same message whether or not the account exists, so this page can't be used to discover accounts.
+        return render_template('forgot_password.html', submitted=True)
+    return render_template('forgot_password.html')
+
+
 @app.route('/admin')
 @login_required('admin')
 def admin_dashboard():
@@ -210,6 +250,7 @@ def admin_dashboard():
         verified_count=verified_count,
         recent_certs=recent_certs,
         notifications=notifications,
+        pending_reset_count=PasswordResetRequest.query.filter_by(status='Pending').count(),
     )
 
 @app.route('/admin/overview/<category>')
@@ -461,6 +502,48 @@ def admin_blockchain_verify():
     blocks = Block.query.order_by(Block.index.asc()).all()
     problems = verify_chain()
     return render_template('blockchain_ledger.html', blocks=blocks, problems=problems, checked=True)
+
+
+RESET_ROLE_LABELS = {'admin': 'Administrator', 'student': 'Student', 'verifier': 'Verifier'}
+
+
+def _password_reset_page(**context):
+    pending = PasswordResetRequest.query.filter_by(status='Pending') \
+        .order_by(PasswordResetRequest.requested_at.desc()).all()
+    resolved = PasswordResetRequest.query.filter_by(status='Resolved') \
+        .order_by(PasswordResetRequest.resolved_at.desc()).limit(10).all()
+    return render_template(
+        'password_resets.html', pending=pending, resolved=resolved,
+        role_labels=RESET_ROLE_LABELS, **context,
+    )
+
+
+@app.route('/admin/password-resets')
+@login_required('admin')
+def admin_password_resets():
+    return _password_reset_page()
+
+
+@app.route('/admin/password-resets/<int:request_id>/resolve', methods=['POST'])
+@login_required('admin')
+def admin_password_reset_resolve(request_id):
+    reset_request = PasswordResetRequest.query.get(request_id)
+    if not reset_request or reset_request.status != 'Pending':
+        return redirect(url_for('admin_password_resets'))
+
+    model = Student if reset_request.account_role == 'student' else User
+    account = model.query.get(reset_request.account_id)
+    if not account:
+        db.session.delete(reset_request)
+        db.session.commit()
+        return _password_reset_page(error="That account no longer exists, so the request was removed.")
+
+    temp_password = generate_temp_password()
+    account.set_password(temp_password)
+    reset_request.status = 'Resolved'
+    reset_request.resolved_at = datetime.now().isoformat(timespec='minutes')
+    db.session.commit()
+    return _password_reset_page(reset_request=reset_request, temp_password=temp_password)
 
 
 @app.route('/admin/profile', methods=['GET', 'POST'])

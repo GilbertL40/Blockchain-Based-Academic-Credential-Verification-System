@@ -113,6 +113,19 @@ class VerificationRecord(db.Model):
     reason = db.Column(db.Text, default='')
 
 
+class PasswordResetRequest(db.Model):
+    __tablename__ = 'password_reset_requests'
+
+    id = db.Column(db.Integer, primary_key=True)
+    account_role = db.Column(db.String(10), nullable=False)  # 'admin', 'student', or 'verifier'
+    account_id = db.Column(db.Integer, nullable=False)  # User.id or Student.id depending on account_role
+    name = db.Column(db.String(120), nullable=False)
+    email = db.Column(db.String(120), nullable=False)
+    status = db.Column(db.String(20), nullable=False, default='Pending')  # 'Pending' or 'Resolved'
+    requested_at = db.Column(db.String(40), nullable=False)
+    resolved_at = db.Column(db.String(40), default='')
+
+
 class Notification(db.Model):
     __tablename__ = 'notifications'
 

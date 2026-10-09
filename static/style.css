@@ -113,6 +113,17 @@ a {
   text-align: center;
 }
 
+.login-success {
+  color: #2e7d32;
+  background: #eaf6ea;
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
 .forgot-link {
   display: block;
   text-align: right;
