@@ -22,7 +22,10 @@
       <p class="dash-logo-text">Academic Credential<br>Verification System</p>
     </div>
     <p class="dash-welcome">Welcome back,</p>
-    <h1 class="dash-role">{{ session['name'] }}</h1>
+    <h1 class="dash-role">{{ current_user.name if current_user else session['name'] }}</h1>
+    {% if current_user %}
+    <p class="dash-user-meta">{{ current_user.organization or 'Verifier' }}{% if current_user.email %} &middot; {{ current_user.email }}{% endif %}</p>
+    {% endif %}
   </div>
   </div>
 </header>

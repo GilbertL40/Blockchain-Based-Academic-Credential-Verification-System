@@ -142,6 +142,17 @@ def attach_notification_links(notifications, role):
     return notifications
 
 
+@app.context_processor
+def inject_current_user():
+    """Makes the logged-in account, loaded fresh from the database, available to every template as current_user."""
+    role = session.get('role')
+    user_id = session.get('user_id')
+    if not role or not user_id:
+        return {'current_user': None}
+    model = Student if role == 'student' else User
+    return {'current_user': model.query.get(user_id)}
+
+
 @app.route('/')
 def home():
     return render_template('login.html')

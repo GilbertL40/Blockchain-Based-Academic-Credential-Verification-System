@@ -25,7 +25,10 @@
     <p class="dash-header-title">My Certificates</p>
   </div>
   <p class="dash-welcome">Welcome back,</p>
-  <h1 class="dash-role">{{ session['name'] }}</h1>
+  <h1 class="dash-role">{{ current_user.name if current_user else session['name'] }}</h1>
+  {% if current_user %}
+  <p class="dash-user-meta">{{ current_user.student_id }} &middot; {{ current_user.program }}{% if current_user.email %} &middot; {{ current_user.email }}{% endif %}</p>
+  {% endif %}
   </div>
 </header>
 

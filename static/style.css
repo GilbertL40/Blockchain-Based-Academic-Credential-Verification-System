@@ -465,6 +465,13 @@ table.credentials tr:last-child td {
   font-weight: 700;
 }
 
+.dash-user-meta {
+  margin: 4px 0 0;
+  font-size: 13px;
+  opacity: 0.85;
+  overflow-wrap: anywhere;
+}
+
 .dash-main {
   width: 100%;
   max-width: 420px;
